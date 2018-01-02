@@ -108,6 +108,7 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def parse_category_list(self, response):
         """
+        总分类列表
         e.g. http://www.chinasuppliers.globalsources.com/SITE/top-china-suppliers.html
         :param response:
         :return:
@@ -117,6 +118,7 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def parse_sub_category_list(self, response):
         """
+        子分类列表
         e.g. http://www.chinasuppliers.globalsources.com/china-manufacturers/Auto-Part/3000000151248.htm
         http://www.chinasuppliers.globalsources.com/china-manufacturers/Auto-Part/3000000151248/2.htm
         :param response:
@@ -133,6 +135,7 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def parse_supplier_list(self, response):
         """
+        供应商列表
         e.g. http://www.chinasuppliers.globalsources.com/china-suppliers/07-Strut-Bar.htm
         :param response:
         :return:
@@ -173,6 +176,7 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def parse_supplier_main_page(self, response):
         """
+        供应商主页
         e.g. http://hkaa.manufacturer.globalsources.com/si/6008839515551/Homepage.htm
         :param response:
         :return:
