@@ -165,6 +165,7 @@ class GlobalSourceSpider(scrapy.Spider):
                 'p[@class="mt5"]/span[text()[contains(.,"Company Cert:")]]/parent::node()/text()').extract()).strip()
             item['certificate_info'] = certificate_info
 
+            item['basic_info_cn'] = models.BasicInfo()
             item['contact_info'] = models.ContactInfo()
             item['trade_info'] = models.TradeInfo()
             item['detailed_info'] = models.EnterpriseDetailInfo()
@@ -189,6 +190,37 @@ class GlobalSourceSpider(scrapy.Spider):
             person.name = name
             person.position = position
             contact_info.persons.append(person)
+        contact_info.tel = response.xpath(
+            '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Tel: ")]]/parent::node()/text()') \
+            .extract_first().strip()
+        contact_info.fax = response.xpath(
+            '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Fax: ")]]/parent::node()/text()') \
+            .extract_first().strip()
+        contact_info.mobile = response.xpath(
+            '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Mobile: ")]]/parent::node()/text()') \
+            .extract_first().strip()
+        contact_info.website = response.xpath(
+            '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Other Homepage Address: ")]]/parent::node()/text()') \
+            .extract_first().strip()
+        # todo email
+
+        detailed_info = item['detailed_info']
+        detailed_info.description = ''.join(response.xpath('//div[@id="allContent"]/child::node()').extract())
+
+        basic_info_cn = item['basic_info_cn']
+        basic_info_cn.name = response.xpath('//div[@class="spSnaSection"]/p/a/text()').extract_first().strip()
+        basic_info_cn.registration_number = response.xpath(
+            '//div[@class="spSnaSection"]/p/em[text()[contains(.,"Registration Number: ")]]/parent::node()/text()') \
+            .extract_first()
+        basic_info_cn.registration_location = response.xpath(
+            '//div[@class="spSnaSection"]/p/em[text()[contains(.,"Company Registration Address: ")]]/parent::node()/text()') \
+            .extract_first()
+
+        basic_info_en = item['basic_info_en']
+        basic_info_en.name = response.xpath('//div[@class="spCompanyInfo fl"]/p[1]/text()').extract_first()
+        basic_info_en.registration_location = response.xpath(
+            '//div[@class="spCompanyInfo fl"]/address/span/text()').extract_first()
+        basic_info_en.registration_number = basic_info_cn.registration_number
 
         yield item
 

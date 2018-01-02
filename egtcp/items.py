@@ -14,6 +14,7 @@ class CompanyItem(scrapy.Item):
     # name = scrapy.Field()
     id = Field()
     basic_info_en = Field()
+    basic_info_cn = Field()
     contact_info = Field()
     certificate_info = Field()
     trade_info = Field()
