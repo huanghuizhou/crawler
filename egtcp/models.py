@@ -11,7 +11,7 @@ class BasicInfo(object):
         self.registration_number = ''
         self.registration_location = ''
         self.address = ''
-        self.time_established = datetime.now()
+        self.year_established = ''
         self.type = ''
         self.status = ''
         self.registration_agency = ''
@@ -28,7 +28,7 @@ class ContactInfo(object):
         self.tel = ''
         self.fax = ''
         self.mobile = ''
-        self.email = ''
+        self.email = []
         self.website = ''
 
     class ContactPerson(object):
@@ -39,7 +39,7 @@ class ContactInfo(object):
 
 class CertificateInfo(object):
     def __init__(self):
-        self.certificate = ''
+        self.certificate = []
         self.standard = ''
         self.issue_date = datetime.now()
         self.issue_by = ''
@@ -81,7 +81,7 @@ class EnterpriseDetailInfo(object):
         self.total_capitalization = ''
         self.brand_name = ''
         self.factory_ownership = ''
-        self.primary_competitive_advantage = ''
+        self.primary_competitive_advantage = []
         self.factory_size_in_square_meters = ''
         self.factory_size_in_square_feet = ''
         self.built_in_size = ''
