@@ -91,6 +91,7 @@ class GlobalSourceSpider(scrapy.Spider):
         # OK, we're in, let's start crawling the protected pages
         # for url in self.start_urls:
         #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
+        # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
         item = CompanyItem()
         url = 'http://hebeileader.manufacturer.globalsources.com/si/6008841464350/Homepage.htm'
         item['id'] = '6008841464350'
