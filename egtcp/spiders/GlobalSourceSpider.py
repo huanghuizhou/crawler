@@ -104,7 +104,7 @@ class GlobalSourceSpider(scrapy.Spider):
             for result in handler(response):
                 yield result
         except Exception as e:
-            self.logger.error("Exception occurred %s", e)
+            self.logger.error("Exception occurred in %s %s", handler.__name__, e)
 
     def parse_category_list(self, response):
         """
@@ -154,18 +154,16 @@ class GlobalSourceSpider(scrapy.Spider):
 
             basic_info_en = models.BasicInfo()
             basic_info_en.name = supplier_selector.xpath('h3[@class="title"]/a/@title').extract_first()
-            basic_info_en.registration_location = supplier_selector.xpath('p[@class="mt15"]/text()').extract()[
-                -1].strip()
+            basic_info_en.registration_location = supplier_selector.xpath('p[@class="mt15"]/text()').extract()
             basic_info_en.type = supplier_selector.xpath(
-                'p[@class="mt5"]/span[text()[contains(.,"Business Type:")]]/parent::node()/text()').extract()[
-                -1].strip()
+                'p[@class="mt5"]/span[text()[contains(.,"Business Type:")]]/parent::node()/text()').extract()
             basic_info_en.business_scope = ','.join(supplier_selector.xpath(
                 'p[@class="mt5"]/span[text()[contains(.,"Main Products:")]]/parent::node()/a/text()').extract())
             item['basic_info_en'] = basic_info_en
 
             certificate_info = models.CertificateInfo()
             certificate_info.certificate = ''.join(supplier_selector.xpath(
-                'p[@class="mt5"]/span[text()[contains(.,"Company Cert:")]]/parent::node()/text()').extract()).strip()
+                'p[@class="mt5"]/span[text()[contains(.,"Company Cert:")]]/parent::node()/text()').extract())
             item['certificate_info'] = certificate_info
 
             item['basic_info_cn'] = models.BasicInfo()
@@ -196,23 +194,23 @@ class GlobalSourceSpider(scrapy.Spider):
             contact_info.persons.append(person)
         contact_info.tel = response.xpath(
             '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Tel: ")]]/parent::node()/text()') \
-            .extract_first().strip()
+            .extract_first()
         contact_info.fax = response.xpath(
             '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Fax: ")]]/parent::node()/text()') \
-            .extract_first().strip()
+            .extract_first()
         contact_info.mobile = response.xpath(
             '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Mobile: ")]]/parent::node()/text()') \
-            .extract_first().strip()
+            .extract_first()
         contact_info.website = response.xpath(
             '//div[@class="spCompanyInfo fl"]/p/em[text()[contains(.,"Other Homepage Address: ")]]/parent::node()/text()') \
-            .extract_first().strip()
+            .extract_first()
         contact_info.email = response.xpath('//div[@class="clearfix contDetEmail"]/ul/li/img/@src').extract()
 
         detailed_info = item['detailed_info']
         detailed_info.description = ''.join(response.xpath('//div[@id="allContent"]/child::node()').extract())
 
         basic_info_cn = item['basic_info_cn']
-        basic_info_cn.name = response.xpath('//div[@class="spSnaSection"]/p/a/text()').extract_first().strip()
+        basic_info_cn.name = response.xpath('//div[@class="spSnaSection"]/p/a/text()').extract_first()
         basic_info_cn.registration_number = response.xpath(
             '//div[@class="spSnaSection"]/p/em[text()[contains(.,"Registration Number: ")]]/parent::node()/text()') \
             .extract_first()
