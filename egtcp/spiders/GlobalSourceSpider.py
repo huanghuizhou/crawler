@@ -310,42 +310,107 @@ class GlobalSourceSpider(scrapy.Spider):
         return []
 
     def parse_supplier_service(self, response):
+        """
+        http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/Services.htm
+        :param response:
+        :return:
+        """
         return []
 
     def parse_supplier_certificate(self, response):
+        """
+        http://cmac.manufacturer.globalsources.com/si/6008839396424/Certifications.htm
+        :param response:
+        :return:
+        """
         return []
 
     def parse_supplier_factory(self, response):
+        """
+        http://jingjintech.manufacturer.globalsources.com/si/6008852333064/FactoryTour.htm
+        :param response:
+        :return:
+        """
         return []
 
     def parse_supplier_r_d(self, response):
+        """
+        http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/RnD.htm
+        :param response:
+        :return:
+        """
         return []
 
     def parse_supplier_oem(self, response):
+        """
+        http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/OEM.htm
+        :param response:
+        :return:
+        """
         return []
 
     def parse_supplier_qc(self, response):
+        """
+        http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/QC.htm
+        :param response:
+        :return:
+        """
         return []
 
     def parse_supplier_trade_show(self, response):
+        """
+        http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/TradeShow.htm
+        :param response:
+        :return:
+        """
         return []
 
     def _extract_info(self, response, text):
+        """
+        详情页，单行普通文本
+        :param response:
+        :param text:
+        :return:
+        """
         xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/text()' % text
         return response.xpath(xpath).extract_first().strip()
 
     def _extract_info_list_p(self, response, text):
+        """
+        详情页，多行普通文本
+        :param response:
+        :param text:
+        :return:
+        """
         xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/p/text()' % text
         return response.xpath(xpath).extract()
 
     def _extract_info_list_ul_li(self, response, text):
+        """
+        详情页，包裹在UL/LI里的文本
+        :param response:
+        :param text:
+        :return:
+        """
         xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/ul/li/text()' % text
         return response.xpath(xpath).extract()
 
     def _extract_sub_page_url(self, response, text):
+        """
+        导航栏悬停菜单
+        :param response:
+        :param text:
+        :return:
+        """
         xpath = '//ul[@class="navL2 navInfoList dotList"]/li/a[text()[contains(.,"%s")]]/@href' % text
         return response.xpath(xpath).extract_first()
 
     def _extract_sub_page_url_from_nav(self, response, text):
+        """
+        导航栏本身
+        :param response:
+        :param text:
+        :return:
+        """
         xpath = '//li/a[@class="spNavA" and text()[contains(.,"%s")]]/@href' % text
         return response.xpath(xpath).extract_first()
