@@ -183,9 +183,10 @@ class GlobalSourceSpider(scrapy.Spider):
 
         contact_info = item['contact_info']
         contact_persons = response.xpath('//div[@class="csSec "]/p/text()').extract()
+        contact_persons = [x.strip() for x in contact_persons if len(x.strip()) > 0]
         for i in range(0, len(contact_persons), 2):
             name = contact_persons[i]
-            position = contact_persons[i + 1]
+            position = contact_persons[i + 1] if i + 1 < len(contact_persons) else ''
             if len(name.strip()) == 0:
                 continue
             person = models.ContactInfo.ContactPerson()

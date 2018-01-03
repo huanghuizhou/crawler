@@ -65,9 +65,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'egtcp.pipelines.EgtcpPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'egtcp.pipelines.GlobalSourcePipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -91,3 +91,4 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 RETRY_TIMES = 5
+LOG_FORMAT = "%(asctime)s [%(name)s:%(lineno)d] %(levelname)s: %(message)s"

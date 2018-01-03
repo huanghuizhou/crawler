@@ -2,9 +2,6 @@
 # coding=utf-8
 
 
-from datetime import datetime
-
-
 class BasicInfo(object):
     def __init__(self):
         self.name = ''
@@ -18,7 +15,7 @@ class BasicInfo(object):
         self.authorized_capital = ''
         self.legal_representatives = ''
         self.business_scope = ''
-        self.business_permit_expiry = datetime.now()
+        self.business_permit_expiry = ''
         self.shareholders = []
 
 
@@ -41,10 +38,10 @@ class CertificateInfo(object):
     def __init__(self):
         self.certificate = []
         self.standard = ''
-        self.issue_date = datetime.now()
+        self.issue_date = ''
         self.issue_by = ''
         self.number = ''
-        self.expiry_date = datetime.now()
+        self.expiry_date = ''
         self.scope = ''
         self.image_url = ''
 
@@ -122,4 +119,4 @@ class EnterpriseDetailInfo(object):
         def __init__(self):
             self.name = ''
             self.location = ''
-            self.date = datetime.now()
+            self.date = ''
