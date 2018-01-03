@@ -13,6 +13,7 @@ class CompanyItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     id = Field()
+    url = Field()
     basic_info_en = Field()
     basic_info_cn = Field()
     contact_info = Field()

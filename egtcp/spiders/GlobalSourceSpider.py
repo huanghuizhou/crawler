@@ -180,6 +180,7 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         item = response.meta['item']
+        item['url'] = response.url
 
         contact_info = item['contact_info']
         contact_persons = response.xpath('//div[@class="csSec "]/p/text()').extract()

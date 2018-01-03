@@ -19,12 +19,13 @@ class GlobalSourcePipeline(object):
 
     def process_item(self, item, spider):
         supplier_id = item['id']
+        data = dict(item)
+        data['_id'] = data.pop('id')
 
         supplier = self.collection.find_one({'_id': supplier_id})
         if not supplier:
-            data = dict(item)
-            data['_id'] = data.pop('id')
             self.collection.insert_one(to_dict(data))
-            return item
+        else:
+            pass
 
         return item
