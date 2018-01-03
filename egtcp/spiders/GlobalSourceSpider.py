@@ -78,6 +78,7 @@ class GlobalSourceSpider(scrapy.Spider):
         item = CompanyItem()
         url = 'http://hebeileader.manufacturer.globalsources.com/si/6008841464350/Homepage.htm'
         item['id'] = '6008841464350'
+        item['processed_page_set'] = set()
         item['url'] = url
         item['basic_info_en'] = models.BasicInfo()
         item['basic_info_cn'] = models.BasicInfo()
@@ -147,6 +148,7 @@ class GlobalSourceSpider(scrapy.Spider):
             item = CompanyItem()
             homepage_url = supplier_selector.xpath('h3[@class="title"]/a/@href').extract_first()
             item['id'] = extract_id(homepage_url)
+            item['processed_page_set'] = set()
 
             basic_info_en = models.BasicInfo()
             basic_info_en.name = supplier_selector.xpath('h3[@class="title"]/a/@title').extract_first()
@@ -250,6 +252,7 @@ class GlobalSourceSpider(scrapy.Spider):
         qc_url = self._extract_sub_page_url(response, 'Quality Control')
         if qc_url:
             yield Request(qc_url, meta={'type': PageType.SUPPLIER_QC, 'item': item})
+        item['processed_page_set'].add(PageType.SUPPLIER_MAIN_PAGE)
         yield item
 
     def parse_supplier_company_profile(self, response):
@@ -294,6 +297,7 @@ class GlobalSourceSpider(scrapy.Spider):
         certificate_info = item['certificate_info']
         certificate_info.export_countries = response.xpath(
             '//p[@class="fl c6 proDetTit" and text()="Certifications:"]/following-sibling::div/ul/li/text()[1]').extract()
+        item['processed_page_set'].add(PageType.SUPPLIER_COMPANY_PROFILE)
         yield item
 
     def parse_supplier_credit_profile(self, response):

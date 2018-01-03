@@ -20,3 +20,4 @@ class CompanyItem(scrapy.Item):
     certificate_info = Field()
     trade_info = Field()
     detailed_info = Field()
+    processed_page_set = Field()  # 这个item是从哪个page出来到set(common.PageType)
