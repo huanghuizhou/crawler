@@ -229,6 +229,9 @@ class GlobalSourceSpider(scrapy.Spider):
         company_profile_url = response.xpath(
             '//li/a[@class="spNavA" and text()[contains(.,"Company Information")]]/@href').extract_first()
         yield Request(company_profile_url, meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item})
+        credit_profile_url = response.xpath(
+            '//ul[@class="navL2 navInfoList dotList"]/li/a[text()[contains(.,"Business Registration Profile")]]/@href').extract_first()
+        yield Request(credit_profile_url, meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item})
         yield item
 
     def parse_supplier_company_profile(self, response):
@@ -238,44 +241,37 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
 
-        def extract_info(text):
-            xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/text()' % text
-            return response.xpath(xpath).extract_first().strip()
-
-        def extract_info_list_p(text):
-            xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/p/text()' % text
-            return response.xpath(xpath).extract()
-
         item = response.meta['item']
 
         trade_info = item['trade_info']
-        trade_info.export_countries = response.xpath(
-            '//p[@class="fl c6 proDetTit" and text()="Past Export Markets/Countries:"]/following-sibling::div/ul/li/text()').extract()
-        trade_info.major_customers = extract_info_list_p('Major Customers:')
-        trade_info.oem_support = extract_info('OEM Services:')
-        trade_info.total_annual_sales = extract_info('Total Annual Sales:')
-        trade_info.payment_method = extract_info('Payment Method:')
-        trade_info.export_percentage = extract_info('Export Percentage:')
+        trade_info.export_countries = self._extract_info_list_ul_li(response, 'Past Export Markets/Countries:')
+        trade_info.major_customers = self._extract_info_list_p(response, 'Major Customers:')
+        trade_info.oem_support = self._extract_info(response, 'OEM Services:')
+        trade_info.total_annual_sales = self._extract_info(response, 'Total Annual Sales:')
+        trade_info.payment_method = self._extract_info(response, 'Payment Method:')
+        trade_info.export_percentage = self._extract_info(response, 'Export Percentage:')
 
         basic_info_cn = item['basic_info_cn']
-        basic_info_cn.year_established = extract_info('Year Established:')
+        basic_info_cn.year_established = self._extract_info(response, 'Year Established:')
 
         basic_info_en = item['basic_info_en']
         basic_info_en.year_established = basic_info_cn.year_established
 
         detailed_info = item['detailed_info']
-        detailed_info.total_staff_amount = extract_info('No. of Total Staff:')
-        detailed_info.engineer_staff_amount = extract_info('No. of Engineers:')
-        detailed_info.total_capitalization = extract_info('Total Capitalization:')
-        detailed_info.brand_name = extract_info('Brand Names:')
-        detailed_info.factory_ownership = extract_info('Factory Ownership:')
-        detailed_info.capacity.production_lines_amount = extract_info('No. of Production Lines:')
-        detailed_info.capacity.monthly_capacity = extract_info('Monthly capacity:')
-        detailed_info.researchAndDevelop.rd_staff_amount = extract_info('No. of R&D Staff:')
-        detailed_info.primary_competitive_advantage = extract_info_list_p('Primary Competitive Advantages:')
-        detailed_info.factory_size_in_square_meters = extract_info('Factory Size in Square Meters:')
-        detailed_info.investment_on_manufacturing_equipment = extract_info('Investment on Manufacturing Equipment:')
-        detailed_info.qc.responsibility = extract_info('QC Responsibility:')
+        detailed_info.total_staff_amount = self._extract_info(response, 'No. of Total Staff:')
+        detailed_info.engineer_staff_amount = self._extract_info(response, 'No. of Engineers:')
+        detailed_info.total_capitalization = self._extract_info(response, 'Total Capitalization:')
+        detailed_info.brand_name = self._extract_info(response, 'Brand Names:')
+        detailed_info.factory_ownership = self._extract_info(response, 'Factory Ownership:')
+        detailed_info.capacity.production_lines_amount = self._extract_info(response, 'No. of Production Lines:')
+        detailed_info.capacity.monthly_capacity = self._extract_info(response, 'Monthly capacity:')
+        detailed_info.researchAndDevelop.rd_staff_amount = self._extract_info(response, 'No. of R&D Staff:')
+        detailed_info.primary_competitive_advantage = self._extract_info_list_p(response,
+                                                                                'Primary Competitive Advantages:')
+        detailed_info.factory_size_in_square_meters = self._extract_info(response, 'Factory Size in Square Meters:')
+        detailed_info.investment_on_manufacturing_equipment = self._extract_info(response,
+                                                                                 'Investment on Manufacturing Equipment:')
+        detailed_info.qc.responsibility = self._extract_info(response, 'QC Responsibility:')
 
         certificate_info = item['certificate_info']
         certificate_info.export_countries = [x.strip() for x in response.xpath(
@@ -283,6 +279,12 @@ class GlobalSourceSpider(scrapy.Spider):
         yield item
 
     def parse_supplier_credit_profile(self, response):
+        """
+        e.g. http://cmac.manufacturer.globalsources.com/si/6008839396424/CreditProfile.htm
+        :param response:
+        :return:
+        """
+
         return []
 
     def parse_supplier_service(self, response):
@@ -305,3 +307,15 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def parse_supplier_trade_show(self, response):
         return []
+
+    def _extract_info(self, response, text):
+        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/text()' % text
+        return response.xpath(xpath).extract_first().strip()
+
+    def _extract_info_list_p(self, response, text):
+        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/p/text()' % text
+        return response.xpath(xpath).extract()
+
+    def _extract_info_list_ul_li(self, response, text):
+        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/ul/li/text()' % text
+        return response.xpath(xpath).extract()
