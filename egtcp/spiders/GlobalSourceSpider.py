@@ -343,11 +343,9 @@ class GlobalSourceSpider(scrapy.Spider):
         return response.xpath(xpath).extract()
 
     def _extract_sub_page_url(self, response, text):
-        url = response.xpath(
-            '//ul[@class="navL2 navInfoList dotList"]/li/a[text()[contains(.,"%s")]]/@href' % text).extract_first()
-        return url
+        xpath = '//ul[@class="navL2 navInfoList dotList"]/li/a[text()[contains(.,"%s")]]/@href' % text
+        return response.xpath(xpath).extract_first()
 
     def _extract_sub_page_url_from_nav(self, response, text):
-        url = response.xpath(
-            '//li/a[@class="spNavA" and text()[contains(.,"%s")]]/@href' % text).extract_first()
-        return url
+        xpath = '//li/a[@class="spNavA" and text()[contains(.,"%s")]]/@href' % text
+        return response.xpath(xpath).extract_first()
