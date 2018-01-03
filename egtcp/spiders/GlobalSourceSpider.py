@@ -89,8 +89,20 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def start_crawl(self, response):
         # OK, we're in, let's start crawling the protected pages
-        for url in self.start_urls:
-            yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
+        # for url in self.start_urls:
+        #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
+        item = CompanyItem()
+        url = 'http://hebeileader.manufacturer.globalsources.com/si/6008841464350/Homepage.htm'
+        item['id'] = '6008841464350'
+        item['url'] = url
+        item['basic_info_en'] = models.BasicInfo()
+        item['basic_info_cn'] = models.BasicInfo()
+        item['contact_info'] = models.ContactInfo()
+        item['certificate_info'] = models.CertificateInfo()
+        item['trade_info'] = models.TradeInfo()
+        item['detailed_info'] = models.EnterpriseDetailInfo()
+        yield scrapy.Request(url,
+                             meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
 
     def parse(self, response):
         # do stuff with the logged in response
@@ -296,8 +308,8 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.qc.responsibility = self._extract_info(response, 'QC Responsibility:')
 
         certificate_info = item['certificate_info']
-        certificate_info.export_countries = [x.strip() for x in response.xpath(
-            '//p[@class="fl c6 proDetTit" and text()="Certifications:"]/following-sibling::div/ul/li/text()[1]').extract()]
+        certificate_info.export_countries = response.xpath(
+            '//p[@class="fl c6 proDetTit" and text()="Certifications:"]/following-sibling::div/ul/li/text()[1]').extract()
         yield item
 
     def parse_supplier_credit_profile(self, response):
@@ -373,7 +385,7 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/text()' % text
-        return response.xpath(xpath).extract_first().strip()
+        return response.xpath(xpath).extract_first()
 
     def _extract_info_list_p(self, response, text):
         """

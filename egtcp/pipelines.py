@@ -19,13 +19,14 @@ class GlobalSourcePipeline(object):
 
     def process_item(self, item, spider):
         supplier_id = item['id']
-        data = dict(item)
+        data = to_dict(dict(item))
         data['_id'] = data.pop('id')
 
         supplier = self.collection.find_one({'_id': supplier_id})
         if not supplier:
-            self.collection.insert_one(to_dict(data))
+            self.collection.insert_one(data)
         else:
-            pass
+            # deep_merge_dict(data, supplier)
+            self.collection.replace_one({'_id': supplier_id}, data, upsert=True)
 
         return item
