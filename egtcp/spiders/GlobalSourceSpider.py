@@ -226,12 +226,34 @@ class GlobalSourceSpider(scrapy.Spider):
             '//div[@class="spCompanyInfo fl"]/address/span/text()').extract_first()
         basic_info_en.registration_number = basic_info_cn.registration_number
 
-        company_profile_url = response.xpath(
-            '//li/a[@class="spNavA" and text()[contains(.,"Company Information")]]/@href').extract_first()
-        yield Request(company_profile_url, meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item})
-        credit_profile_url = response.xpath(
-            '//ul[@class="navL2 navInfoList dotList"]/li/a[text()[contains(.,"Business Registration Profile")]]/@href').extract_first()
-        yield Request(credit_profile_url, meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item})
+        # other sub page link
+        company_profile_url = self._extract_sub_page_url_from_nav(response, 'Company Information')
+        if company_profile_url:
+            yield Request(company_profile_url, meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item})
+        trade_show_url = self._extract_sub_page_url_from_nav(response, 'Trade Show')
+        if trade_show_url:
+            yield Request(trade_show_url, meta={'type': PageType.SUPPLIER_TRADE_SHOW, 'item': item})
+        credit_profile_url = self._extract_sub_page_url(response, 'Business Registration Profile')
+        if credit_profile_url:
+            yield Request(credit_profile_url, meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item})
+        service_url = self._extract_sub_page_url(response, 'Services and Support')
+        if service_url:
+            yield Request(service_url, meta={'type': PageType.SUPPLIER_SERVICE, 'item': item})
+        certification_url = self._extract_sub_page_url(response, 'Certifications')
+        if certification_url:
+            yield Request(certification_url, meta={'type': PageType.SUPPLIER_CERTIFICATE, 'item': item})
+        factory_tour_url = self._extract_sub_page_url(response, 'Factory Tour')
+        if factory_tour_url:
+            yield Request(factory_tour_url, meta={'type': PageType.SUPPLIER_FACTORY, 'item': item})
+        rnd_url = self._extract_sub_page_url(response, 'Research and Development')
+        if rnd_url:
+            yield Request(rnd_url, meta={'type': PageType.SUPPLIER_R_D, 'item': item})
+        oem_url = self._extract_sub_page_url(response, 'OEM/ODM')
+        if oem_url:
+            yield Request(oem_url, meta={'type': PageType.SUPPLIER_OEM, 'item': item})
+        qc_url = self._extract_sub_page_url(response, 'Quality Control')
+        if qc_url:
+            yield Request(qc_url, meta={'type': PageType.SUPPLIER_QC, 'item': item})
         yield item
 
     def parse_supplier_company_profile(self, response):
@@ -319,3 +341,13 @@ class GlobalSourceSpider(scrapy.Spider):
     def _extract_info_list_ul_li(self, response, text):
         xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/ul/li/text()' % text
         return response.xpath(xpath).extract()
+
+    def _extract_sub_page_url(self, response, text):
+        url = response.xpath(
+            '//ul[@class="navL2 navInfoList dotList"]/li/a[text()[contains(.,"%s")]]/@href' % text).extract_first()
+        return url
+
+    def _extract_sub_page_url_from_nav(self, response, text):
+        url = response.xpath(
+            '//li/a[@class="spNavA" and text()[contains(.,"%s")]]/@href' % text).extract_first()
+        return url
