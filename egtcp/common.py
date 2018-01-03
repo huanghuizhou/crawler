@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+# coding=utf-8
+
+from enum import Enum
+
+
+class PageType(Enum):
+    CATEGORY_LIST = 0
+    SUB_CATEGORY_LIST = 1
+    SUPPLIER_LIST = 2
+    SUPPLIER_MAIN_PAGE = 3
+    SUPPLIER_COMPANY_PROFILE = 4
+    SUPPLIER_CREDIT_PROFILE = 5
+    SUPPLIER_SERVICE = 6
+    SUPPLIER_CERTIFICATE = 7
+    SUPPLIER_FACTORY = 8
+    SUPPLIER_R_D = 9
+    SUPPLIER_OEM = 10
+    SUPPLIER_QC = 11
+    SUPPLIER_TRADE_SHOW = 12
