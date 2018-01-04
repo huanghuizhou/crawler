@@ -154,8 +154,8 @@ class GlobalSourceSpider(scrapy.Spider):
             basic_info_en = models.BasicInfo()
             basic_info_en.name = supplier_selector.xpath('h3[@class="title"]/a/@title').extract_first()
             basic_info_en.registration_location = supplier_selector.xpath('p[@class="mt15"]/text()').extract()
-            basic_info_en.type = supplier_selector.xpath(
-                'p[@class="mt5"]/span[text()[contains(.,"Business Type:")]]/parent::node()/text()').extract()
+            # basic_info_en.type = supplier_selector.xpath(
+            #     'p[@class="mt5"]/span[text()[contains(.,"Business Type:")]]/parent::node()/text()').extract()
             basic_info_en.business_scope = ','.join(supplier_selector.xpath(
                 'p[@class="mt5"]/span[text()[contains(.,"Main Products:")]]/parent::node()/a/text()').extract())
             item['basic_info_en'] = basic_info_en
@@ -294,6 +294,7 @@ class GlobalSourceSpider(scrapy.Spider):
 
         basic_info_en = item['basic_info_en']
         basic_info_en.year_established = basic_info_cn.year_established
+        basic_info_en.type = self._extract_info_list(response, 'Business Type:')
 
         detailed_info = item['detailed_info']
         detailed_info.total_staff_amount = self._extract_info(response, 'No. of Total Staff:')
