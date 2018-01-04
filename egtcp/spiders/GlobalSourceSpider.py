@@ -418,6 +418,25 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         item = response.meta['item']
+
+        trade_info = item['trade_info']
+        trade_info.oem_capability = self._extract_info(response, 'OEM/ODM Capability:')
+        trade_info.oem_experience = self._extract_info(response, 'Years of OEM/ODM Experience:')
+        trade_info.design_service_offered = self._extract_info(response, 'Design Services Offered:')
+        trade_info.design_service_detail = self._extract_info(response, 'Details of Design Services Offered:')
+        trade_info.buyer_label_offered = self._extract_info(response, 'Buyer Label Offered:')
+        trade_info.buyer_label_detail = self._extract_info(response, 'Details of Buyer Label Offered:')
+        trade_info.material_component = self._extract_info(response, 'Materials/Components:')
+        trade_info.minimum_order = self._extract_info(response, 'Minimum Order')
+        trade_info.major_market_served = self._extract_info_list(response, 'Major Markets Served:')
+        trade_info.main_oem_customers = self._extract_info(response, 'Main OEM/ODM Customers:')
+
+        detailed_info = item['detailed_info']
+        detailed_info.factory_size_in_square_meters = self._extract_info(response, 'Size of Factory in Square Meters:')
+        detailed_info.factory_size_in_square_feet = self._extract_info(response, 'Factory Size in Square Feet:')
+        detailed_info.staff_detail = self._extract_info_list(response, 'Staff Details:')
+        detailed_info.capacity.monthly_capacity = self._extract_info(response, 'Monthly Capacity:')
+        detailed_info.capacity.monthly_output = self._extract_info(response, 'Monthly Output:')
         item['todo_page_set'].remove(PageType.SUPPLIER_OEM)
         yield item
 
