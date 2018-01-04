@@ -292,7 +292,8 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.engineer_staff_amount = self._extract_info(response, 'No. of Engineers:')
         detailed_info.total_capitalization = self._extract_info(response, 'Total Capitalization:')
         detailed_info.brand_name = self._extract_info(response, 'Brand Names:')
-        detailed_info.factory_ownership = self._extract_info(response, 'Factory Ownership:')
+        detailed_info.bank_detail = self._extract_info_list(response, 'Bank Details:')
+        detailed_info.factory_ownership = self._extract_info_list(response, 'Factory Ownership:')
         detailed_info.capacity.production_lines_amount = self._extract_info(response, 'No. of Production Lines:')
         detailed_info.capacity.monthly_capacity = self._extract_info(response, 'Monthly capacity:')
         detailed_info.researchAndDevelop.rd_staff_amount = self._extract_info(response, 'No. of R&D Staff:')
@@ -301,7 +302,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.factory_size_in_square_meters = self._extract_info(response, 'Factory Size in Square Meters:')
         detailed_info.investment_on_manufacturing_equipment = self._extract_info(response,
                                                                                  'Investment on Manufacturing Equipment:')
-        detailed_info.qc.responsibility = self._extract_info(response, 'QC Responsibility:')
+        detailed_info.qc.responsibility = self._extract_info_list(response, 'QC Responsibility:')
 
         certificate_info = item['certificate_info']
         certificate_info.export_countries = response.xpath(

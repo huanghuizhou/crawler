@@ -81,7 +81,8 @@ class EnterpriseDetailInfo(object):
         self.description = ''
         self.total_capitalization = ''
         self.brand_name = ''
-        self.factory_ownership = ''
+        self.bank_detail = []
+        self.factory_ownership = []
         self.primary_competitive_advantage = []
         self.factory_size_in_square_meters = ''
         self.factory_size_in_square_feet = ''
@@ -112,7 +113,7 @@ class EnterpriseDetailInfo(object):
 
     class QualityControl(object):
         def __init__(self):
-            self.responsibility = ''
+            self.responsibility = []
             self.technical_support = ''
             self.staff = ''
             self.equipment = ''
