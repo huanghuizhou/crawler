@@ -86,6 +86,7 @@ class EnterpriseDetailInfo(object):
         self.primary_competitive_advantage = []
         self.factory_size_in_square_meters = ''
         self.factory_size_in_square_feet = ''
+        self.total_area = ''
         self.built_in_size = ''
         self.investment_on_manufacturing_equipment = ''
         self.total_staff_amount = ''
@@ -115,7 +116,7 @@ class EnterpriseDetailInfo(object):
         def __init__(self):
             self.responsibility = []
             self.technical_support = ''
-            self.staff = ''
+            self.staff_amount = ''
             self.equipment = ''
             self.testing_detail = ''
             self.other_info = ''

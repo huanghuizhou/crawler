@@ -76,8 +76,8 @@ class GlobalSourceSpider(scrapy.Spider):
         #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
         # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
         item = CompanyItem()
-        url = 'http://jingjintech.manufacturer.globalsources.com/si/6008852333064/Homepage.htm'
-        item['id'] = '6008852333064'
+        url = 'http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/Homepage.htm'
+        item['id'] = '6008800522305'
         item['todo_page_set'] = set()
         item['url'] = url
         item['basic_info_en'] = models.BasicInfo()
@@ -401,6 +401,13 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         item = response.meta['item']
+
+        detailed_info = item['detailed_info']
+        detailed_info.researchAndDevelop.location = self._extract_info(response, 'Locations:')
+        detailed_info.researchAndDevelop.profile = self._extract_info(response, 'Profile:')
+        detailed_info.researchAndDevelop.equipment = self._extract_info(response, 'Machinery/Equipment for R&D:')
+        detailed_info.researchAndDevelop.patent = self._extract_info(response, 'Patents & Copyrights:')
+        detailed_info.researchAndDevelop.award = self._extract_info(response, 'Awards & Other Recognitions:')
         item['todo_page_set'].remove(PageType.SUPPLIER_R_D)
         yield item
 
