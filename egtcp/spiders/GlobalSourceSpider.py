@@ -220,7 +220,7 @@ class GlobalSourceSpider(scrapy.Spider):
 
         basic_info_en = item['basic_info_en']
         basic_info_en.name = response.xpath('//div[@class="spCompanyInfo fl"]/p[1]/text()').extract_first()
-        basic_info_en.registration_location = response.xpath(
+        basic_info_en.address = response.xpath(
             '//div[@class="spCompanyInfo fl"]/address/span/text()').extract_first()
         basic_info_en.registration_number = basic_info_cn.registration_number
 
@@ -274,8 +274,8 @@ class GlobalSourceSpider(scrapy.Spider):
         item = response.meta['item']
 
         trade_info = item['trade_info']
-        trade_info.export_countries = self._extract_info_list_ul_li(response, 'Past Export Markets/Countries:')
-        trade_info.major_customers = self._extract_info_list_p(response, 'Major Customers:')
+        trade_info.export_countries = self._extract_info_list(response, 'Past Export Markets/Countries:')
+        trade_info.major_customers = self._extract_info_list(response, 'Major Customers:')
         trade_info.oem_support = self._extract_info(response, 'OEM Services:')
         trade_info.total_annual_sales = self._extract_info(response, 'Total Annual Sales:')
         trade_info.payment_method = self._extract_info(response, 'Payment Method:')
@@ -296,7 +296,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.capacity.production_lines_amount = self._extract_info(response, 'No. of Production Lines:')
         detailed_info.capacity.monthly_capacity = self._extract_info(response, 'Monthly capacity:')
         detailed_info.researchAndDevelop.rd_staff_amount = self._extract_info(response, 'No. of R&D Staff:')
-        detailed_info.primary_competitive_advantage = self._extract_info_list_p(response,
+        detailed_info.primary_competitive_advantage = self._extract_info_list(response,
                                                                                 'Primary Competitive Advantages:')
         detailed_info.factory_size_in_square_meters = self._extract_info(response, 'Factory Size in Square Meters:')
         detailed_info.investment_on_manufacturing_equipment = self._extract_info(response,
@@ -316,6 +316,21 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         item = response.meta['item']
+        basic_info_en = item['basic_info_en']
+        basic_info_en.registration_location = self._extract_info(response, 'Registered Address:')
+        basic_info_en.date_established = self._extract_info(response, 'Incorporation Date:')
+        basic_info_en.legal_form = self._extract_info(response, 'Legal Form:')
+        basic_info_en.status = self._extract_info(response, 'Company Status:')
+        basic_info_en.registration_agency = self._extract_info(response, 'Registration Agency:')
+        basic_info_en.registration_number = self._extract_info(response, 'Registration Number:')
+        basic_info_en.authorized_capital = self._extract_info(response, 'Authorized Capital:')
+        basic_info_en.paid_up_capital = self._extract_info(response, 'Paid-Up Capital:')
+        basic_info_en.legal_representatives = self._extract_info(response, 'Legal Representatives:')
+        basic_info_en.import_export_license_obtained = self._extract_info(response,
+                                                                          'Import & Export Licences Obtained:')
+        basic_info_en.business_permit_expiry = self._extract_info(response, 'Business Permit Expiry:')
+        basic_info_en.shareholders = self._extract_info_list(response, 'Shareholders:')
+
         item['todo_page_set'].remove(PageType.SUPPLIER_CREDIT_PROFILE)
         yield item
 
@@ -396,27 +411,17 @@ class GlobalSourceSpider(scrapy.Spider):
         :param text:
         :return:
         """
-        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/text()' % text
+        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::*//text()' % text
         return response.xpath(xpath).extract_first()
 
-    def _extract_info_list_p(self, response, text):
+    def _extract_info_list(self, response, text):
         """
         详情页，多行普通文本
         :param response:
         :param text:
         :return:
         """
-        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/p/text()' % text
-        return response.xpath(xpath).extract()
-
-    def _extract_info_list_ul_li(self, response, text):
-        """
-        详情页，包裹在UL/LI里的文本
-        :param response:
-        :param text:
-        :return:
-        """
-        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::div/ul/li/text()' % text
+        xpath = '//p[@class="fl c6 proDetTit" and text()="%s"]/following-sibling::*//text()' % text
         return response.xpath(xpath).extract()
 
     def _extract_sub_page_url(self, response, text):

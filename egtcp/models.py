@@ -9,14 +9,18 @@ class BasicInfo(object):
         self.registration_location = ''
         self.address = ''
         self.year_established = ''
+        self.date_established = ''
+        self.legal_form = ''
         self.type = ''
         self.status = ''
         self.registration_agency = ''
         self.authorized_capital = ''
+        self.paid_up_capital = ''
         self.legal_representatives = ''
         self.business_scope = ''
         self.business_permit_expiry = ''
         self.shareholders = []
+        self.import_export_license_obtained = ''
 
 
 class ContactInfo(object):
