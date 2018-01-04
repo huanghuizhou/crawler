@@ -76,8 +76,8 @@ class GlobalSourceSpider(scrapy.Spider):
         #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
         # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
         item = CompanyItem()
-        url = 'http://cmac.manufacturer.globalsources.com/si/6008839396424/Homepage.htm'
-        item['id'] = '6008839396424'
+        url = 'http://jingjintech.manufacturer.globalsources.com/si/6008852333064/Homepage.htm'
+        item['id'] = '6008852333064'
         item['todo_page_set'] = set()
         item['url'] = url
         item['basic_info_en'] = models.BasicInfo()
@@ -384,6 +384,13 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         item = response.meta['item']
+
+        detailed_info = item['detailed_info']
+        detailed_info.total_area = self._extract_info(response, 'Total area of:')
+        detailed_info.built_in_size = self._extract_info(response, 'Built in:')
+        detailed_info.production_staff_amount = self._extract_info(response, 'Production Staff:')
+        detailed_info.qc.staff_amount = self._extract_info(response, 'QC Staff:')
+        detailed_info.researchAndDevelop.rd_staff_amount = self._extract_info(response, 'R&D Staff:')
         item['todo_page_set'].remove(PageType.SUPPLIER_FACTORY)
         yield item
 
