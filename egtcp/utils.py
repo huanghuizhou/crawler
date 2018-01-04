@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
+from urllib.parse import urlparse
+
 
 def to_dict(obj, class_prefix=None):
     clazz = obj.__class__.__name__
@@ -46,3 +48,16 @@ def deep_merge_dict(src, dest):
             deep_merge_dict(value, dest_value)
         else:
             dest[key] = value
+
+
+def complete_url(page, target_url):
+    if not target_url:
+        return None
+    if target_url.startswith('http://') or target_url.startswith('https://'):
+        return target_url
+    o = urlparse(page)
+    host = '%s://%s:%d' % (o.schema, o.hostname, o.port)
+    if target_url.startswith('/'):
+        return host + target_url
+    else:
+        return host + '/' + target_url

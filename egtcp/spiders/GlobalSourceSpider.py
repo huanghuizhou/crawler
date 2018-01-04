@@ -9,6 +9,7 @@ from scrapy.http import Request
 from egtcp import models
 from egtcp.common import PageType
 from egtcp.items import CompanyItem
+from egtcp.utils import complete_url
 
 REGEX_PATTERN_ID = re.compile('.*/si/(\d*)/Home.*')
 
@@ -111,7 +112,7 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         for url in response.xpath('//a[@class="parentpt"]/@href').extract():
-            yield Request(url, meta={'type': PageType.SUB_CATEGORY_LIST})
+            yield Request(complete_url(response.url, url), meta={'type': PageType.SUB_CATEGORY_LIST})
 
     def parse_sub_category_list(self, response):
         """
@@ -122,13 +123,13 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         for supplier_url in response.xpath('//a[@class="darkblue"]/@href').extract():
-            yield Request(supplier_url, meta={'type': PageType.SUPPLIER_LIST})
+            yield Request(complete_url(response.url, supplier_url), meta={'type': PageType.SUPPLIER_LIST})
         page_name = response.url.rsplit('/', 1)[-1]
         name, _ = page_name.split('.')
         if len(name) > 4:
             # Page 1
             for page_url in response.xpath('//div[contains(@id, "pgSet")]/a/@href').extract():
-                yield Request(page_url, meta={'type': PageType.SUB_CATEGORY_LIST})
+                yield Request(complete_url(response.url, page_url), meta={'type': PageType.SUB_CATEGORY_LIST})
 
     def parse_supplier_list(self, response):
         """
@@ -168,7 +169,8 @@ class GlobalSourceSpider(scrapy.Spider):
             item['contact_info'] = models.ContactInfo()
             item['trade_info'] = models.TradeInfo()
             item['detailed_info'] = models.EnterpriseDetailInfo()
-            yield Request(homepage_url, meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
+            yield Request(complete_url(response.url, homepage_url),
+                          meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
 
     def parse_supplier_main_page(self, response):
         """
@@ -229,39 +231,45 @@ class GlobalSourceSpider(scrapy.Spider):
         company_profile_url = self._extract_sub_page_url_from_nav(response, 'Company Information')
         if company_profile_url:
             todo_page_set.add(PageType.SUPPLIER_COMPANY_PROFILE)
-            yield Request(company_profile_url, meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item})
+            yield Request(complete_url(response.url, company_profile_url),
+                          meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item})
         trade_show_url = self._extract_sub_page_url_from_nav(response, 'Trade Show')
         if trade_show_url:
             todo_page_set.add(PageType.SUPPLIER_TRADE_SHOW)
-            yield Request(trade_show_url, meta={'type': PageType.SUPPLIER_TRADE_SHOW, 'item': item})
+            yield Request(complete_url(response.url, trade_show_url),
+                          meta={'type': PageType.SUPPLIER_TRADE_SHOW, 'item': item})
         credit_profile_url = self._extract_sub_page_url(response, 'Business Registration Profile')
         if credit_profile_url:
             todo_page_set.add(PageType.SUPPLIER_CREDIT_PROFILE)
-            yield Request(credit_profile_url, meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item})
+            yield Request(complete_url(response.url, credit_profile_url),
+                          meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item})
         service_url = self._extract_sub_page_url(response, 'Services and Support')
         if service_url:
             todo_page_set.add(PageType.SUPPLIER_SERVICE)
-            yield Request(service_url, meta={'type': PageType.SUPPLIER_SERVICE, 'item': item})
+            yield Request(complete_url(response.url, service_url),
+                          meta={'type': PageType.SUPPLIER_SERVICE, 'item': item})
         certification_url = self._extract_sub_page_url(response, 'Certifications')
         if certification_url:
             todo_page_set.add(PageType.SUPPLIER_CERTIFICATE)
-            yield Request(certification_url, meta={'type': PageType.SUPPLIER_CERTIFICATE, 'item': item})
+            yield Request(complete_url(response.url, certification_url),
+                          meta={'type': PageType.SUPPLIER_CERTIFICATE, 'item': item})
         factory_tour_url = self._extract_sub_page_url(response, 'Factory Tour')
         if factory_tour_url:
             todo_page_set.add(PageType.SUPPLIER_FACTORY)
-            yield Request(factory_tour_url, meta={'type': PageType.SUPPLIER_FACTORY, 'item': item})
+            yield Request(complete_url(response.url, factory_tour_url),
+                          meta={'type': PageType.SUPPLIER_FACTORY, 'item': item})
         rnd_url = self._extract_sub_page_url(response, 'Research and Development')
         if rnd_url:
             todo_page_set.add(PageType.SUPPLIER_R_D)
-            yield Request(rnd_url, meta={'type': PageType.SUPPLIER_R_D, 'item': item})
+            yield Request(complete_url(response.url, rnd_url), meta={'type': PageType.SUPPLIER_R_D, 'item': item})
         oem_url = self._extract_sub_page_url(response, 'OEM/ODM')
         if oem_url:
             todo_page_set.add(PageType.SUPPLIER_OEM)
-            yield Request(oem_url, meta={'type': PageType.SUPPLIER_OEM, 'item': item})
+            yield Request(complete_url(response.url, oem_url), meta={'type': PageType.SUPPLIER_OEM, 'item': item})
         qc_url = self._extract_sub_page_url(response, 'Quality Control')
         if qc_url:
             todo_page_set.add(PageType.SUPPLIER_QC)
-            yield Request(qc_url, meta={'type': PageType.SUPPLIER_QC, 'item': item})
+            yield Request(complete_url(response.url, qc_url), meta={'type': PageType.SUPPLIER_QC, 'item': item})
         yield item
 
     def parse_supplier_company_profile(self, response):
