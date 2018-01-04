@@ -6,6 +6,9 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.exceptions import IgnoreRequest
+
+from egtcp.dao import MONGO_CLIENT
 
 
 class GlobalSourceSpiderMiddleware(object):
@@ -57,5 +60,22 @@ class GlobalSourceSpiderMiddleware(object):
 
 
 class GlobalSourceDownloaderMiddleware(object):
+    def __init__(self):
+        self.client = MONGO_CLIENT
+        self.collection = self.client['dadaoDb']['test1']
+
     def process_request(self, request, spider):
-        pass
+        if 'item' not in request.meta:
+            # 非详情页不过滤
+            return None
+
+        count = self.collection.count({
+            '$and': [
+                {'url': request.url},
+                {'done': True}
+            ]
+        })
+        if count != 0:
+            # 已完成页面直接跳过
+            raise IgnoreRequest(request.url)
+        return None
