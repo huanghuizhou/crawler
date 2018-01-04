@@ -56,7 +56,7 @@ def complete_url(page, target_url):
     if target_url.startswith('http://') or target_url.startswith('https://'):
         return target_url
     o = urlparse(page)
-    host = '%s://%s:%d' % (o.scheme, o.hostname, o.port)
+    host = '%s://%s:%d' % (o.scheme, o.hostname, o.port if o.port else 80)
     if target_url.startswith('/'):
         return host + target_url
     else:
