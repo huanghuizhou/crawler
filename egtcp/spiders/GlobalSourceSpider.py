@@ -296,7 +296,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.factory_ownership = self._extract_info_list(response, 'Factory Ownership:')
         detailed_info.capacity.production_lines_amount = self._extract_info(response, 'No. of Production Lines:')
         detailed_info.capacity.monthly_capacity = self._extract_info(response, 'Monthly capacity:')
-        detailed_info.researchAndDevelop.rd_staff_amount = self._extract_info(response, 'No. of R&D Staff:')
+        detailed_info.research_and_develop.rd_staff_amount = self._extract_info(response, 'No. of R&D Staff:')
         detailed_info.primary_competitive_advantage = self._extract_info_list(response,
                                                                               'Primary Competitive Advantages:')
         detailed_info.factory_size_in_square_meters = self._extract_info(response, 'Factory Size in Square Meters:')
@@ -390,7 +390,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.built_in_size = self._extract_info(response, 'Built in:')
         detailed_info.production_staff_amount = self._extract_info(response, 'Production Staff:')
         detailed_info.qc.staff_amount = self._extract_info(response, 'QC Staff:')
-        detailed_info.researchAndDevelop.rd_staff_amount = self._extract_info(response, 'R&D Staff:')
+        detailed_info.research_and_develop.rd_staff_amount = self._extract_info(response, 'R&D Staff:')
         item['todo_page_set'].remove(PageType.SUPPLIER_FACTORY)
         yield item
 
@@ -403,11 +403,11 @@ class GlobalSourceSpider(scrapy.Spider):
         item = response.meta['item']
 
         detailed_info = item['detailed_info']
-        detailed_info.researchAndDevelop.location = self._extract_info(response, 'Locations:')
-        detailed_info.researchAndDevelop.profile = self._extract_info(response, 'Profile:')
-        detailed_info.researchAndDevelop.equipment = self._extract_info(response, 'Machinery/Equipment for R&D:')
-        detailed_info.researchAndDevelop.patent = self._extract_info(response, 'Patents & Copyrights:')
-        detailed_info.researchAndDevelop.award = self._extract_info(response, 'Awards & Other Recognitions:')
+        detailed_info.research_and_develop.location = self._extract_info(response, 'Locations:')
+        detailed_info.research_and_develop.profile = self._extract_info(response, 'Profile:')
+        detailed_info.research_and_develop.equipment = self._extract_info(response, 'Machinery/Equipment for R&D:')
+        detailed_info.research_and_develop.patent = self._extract_info(response, 'Patents & Copyrights:')
+        detailed_info.research_and_develop.award = self._extract_info(response, 'Awards & Other Recognitions:')
         item['todo_page_set'].remove(PageType.SUPPLIER_R_D)
         yield item
 
@@ -459,11 +459,23 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def parse_supplier_trade_show(self, response):
         """
-        http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/TradeShow.htm
+        http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/trade_show.htm
         :param response:
         :return:
         """
+
+        def extract_info(text):
+            xpath = 'div/div/p[text()[contains(.,"%s")]]/following-sibling::p/text()' % text
+            return selector.xpath(xpath).extract_first()
         item = response.meta['item']
+
+        detailed_info = item['detailed_info']
+        for selector in response.xpath('//div[@class[contains(.,"proDetCont mt10")]]'):
+            trade_show = models.EnterpriseDetailInfo.TradeShow()
+            trade_show.name = extract_info('Trade Show')
+            trade_show.location = extract_info('Location/Venue')
+            trade_show.date = extract_info('Show Date')
+            detailed_info.trade_show.append(trade_show)
         item['todo_page_set'].remove(PageType.SUPPLIER_TRADE_SHOW)
         yield item
 

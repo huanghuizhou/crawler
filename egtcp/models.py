@@ -71,7 +71,7 @@ class TradeInfo(object):
         self.buyer_label_detail = ''
         self.material_component = ''
         self.minimum_order = ''
-        self.major_market_service = ''
+        self.major_market_served = ''
         self.main_oem_customers = ''
 
 
@@ -89,13 +89,14 @@ class EnterpriseDetailInfo(object):
         self.total_area = ''
         self.built_in_size = ''
         self.investment_on_manufacturing_equipment = ''
+        self.staff_detail = []
         self.total_staff_amount = ''
         self.engineer_staff_amount = ''
         self.production_staff_amount = ''
         self.capacity = EnterpriseDetailInfo.Capacity()
-        self.researchAndDevelop = EnterpriseDetailInfo.ResearchAndDevelop()
+        self.research_and_develop = EnterpriseDetailInfo.ResearchAndDevelop()
         self.qc = EnterpriseDetailInfo.QualityControl()
-        self.tradeShow = EnterpriseDetailInfo.TradeShow()
+        self.trade_show = []  # models.EnterpriseDetailInfo.TradeShow
 
     class Capacity(object):
         def __init__(self):
