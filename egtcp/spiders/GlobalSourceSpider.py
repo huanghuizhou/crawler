@@ -330,6 +330,7 @@ class GlobalSourceSpider(scrapy.Spider):
                                                                           'Import & Export Licences Obtained:')
         basic_info_en.business_permit_expiry = self._extract_info(response, 'Business Permit Expiry:')
         basic_info_en.shareholders = self._extract_info_list(response, 'Shareholders:')
+        basic_info_en.business_scope = self._extract_info(response, 'Business Scope:')
 
         item['todo_page_set'].remove(PageType.SUPPLIER_CREDIT_PROFILE)
         yield item
