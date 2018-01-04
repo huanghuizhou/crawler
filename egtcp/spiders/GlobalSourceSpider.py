@@ -72,22 +72,22 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def start_crawl(self, response):
         # OK, we're in, let's start crawling the protected pages
-        # for url in self.start_urls:
-        #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
-        # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
-        item = CompanyItem()
-        url = 'http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/Homepage.htm'
-        item['id'] = '6008800522305'
-        item['todo_page_set'] = set()
-        item['url'] = url
-        item['basic_info_en'] = models.BasicInfo()
-        item['basic_info_cn'] = models.BasicInfo()
-        item['contact_info'] = models.ContactInfo()
-        item['certificate_info'] = models.CertificateInfo()
-        item['trade_info'] = models.TradeInfo()
-        item['detailed_info'] = models.EnterpriseDetailInfo()
-        yield scrapy.Request(url,
-                             meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
+        for url in self.start_urls:
+            yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
+        # # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
+        # item = CompanyItem()
+        # url = 'http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/Homepage.htm'
+        # item['id'] = '6008800522305'
+        # item['todo_page_set'] = set()
+        # item['url'] = url
+        # item['basic_info_en'] = models.BasicInfo()
+        # item['basic_info_cn'] = models.BasicInfo()
+        # item['contact_info'] = models.ContactInfo()
+        # item['certificate_info'] = models.CertificateInfo()
+        # item['trade_info'] = models.TradeInfo()
+        # item['detailed_info'] = models.EnterpriseDetailInfo()
+        # yield scrapy.Request(url,
+        #                      meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
 
     def parse(self, response):
         # do stuff with the logged in response
@@ -101,7 +101,7 @@ class GlobalSourceSpider(scrapy.Spider):
             for result in handler(response):
                 yield result
         except Exception as e:
-            self.logger.error("Exception occurred in %s %s", handler.__name__, e)
+            self.logger.error("Exception occurred in (%s): %s %s", response.url, handler.__name__, e)
 
     def parse_category_list(self, response):
         """
