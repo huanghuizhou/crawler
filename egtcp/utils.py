@@ -51,6 +51,12 @@ def deep_merge_dict(src, dest):
 
 
 def complete_url(page, target_url):
+    """
+    拼接完整URL（如果缺scheme和host）
+    :param page: 所在页面URL
+    :param target_url: 目标URL
+    :return:
+    """
     if not target_url:
         return None
     if target_url.startswith('http://') or target_url.startswith('https://'):
