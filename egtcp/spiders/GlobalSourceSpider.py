@@ -76,8 +76,8 @@ class GlobalSourceSpider(scrapy.Spider):
         #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
         # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
         item = CompanyItem()
-        url = 'http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/Homepage.htm'
-        item['id'] = '6008800522305'
+        url = 'http://cmac.manufacturer.globalsources.com/si/6008839396424/Homepage.htm'
+        item['id'] = '6008839396424'
         item['todo_page_set'] = set()
         item['url'] = url
         item['basic_info_en'] = models.BasicInfo()
@@ -305,7 +305,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.qc.responsibility = self._extract_info_list(response, 'QC Responsibility:')
 
         certificate_info = item['certificate_info']
-        certificate_info.export_countries = response.xpath(
+        certificate_info.certificate = response.xpath(
             '//p[@class="fl c6 proDetTit" and text()="Certifications:"]/following-sibling::div/ul/li/text()[1]').extract()
         item['todo_page_set'].remove(PageType.SUPPLIER_COMPANY_PROFILE)
         yield item
@@ -358,7 +358,22 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
+
+        def extract_info(text):
+            xpath = '//span[@class="proCatVerfied_sub" and text()="%s"]/following-sibling::span/text()' % text
+            return response.xpath(xpath).extract_first()
+
         item = response.meta['item']
+
+        certificate_info = item['certificate_info']
+        certificate_info.standard = extract_info('Certificate Standard:')
+        certificate_info.issue_date = extract_info('Issue Date:')
+        certificate_info.issue_by = extract_info('Issued By:')
+        certificate_info.number = extract_info('Number:')
+        certificate_info.expiry_date = extract_info('Expiry Date:')
+        certificate_info.scope = extract_info('Scope/Range:')
+        certificate_info.image_url = response.xpath(
+            '//i[@class="picBigIcon"]/preceding-sibling::img/@src').extract_first()
         item['todo_page_set'].remove(PageType.SUPPLIER_CERTIFICATE)
         yield item
 
