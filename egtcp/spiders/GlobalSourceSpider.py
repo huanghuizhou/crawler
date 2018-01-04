@@ -447,6 +447,13 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         item = response.meta['item']
+
+        detailed_info = item['detailed_info']
+        detailed_info.qc.technical_support = self._extract_info(response, 'QC/Technical Support:')
+        detailed_info.qc.staff_amount = self._extract_info(response, 'QC Staff:')
+        detailed_info.qc.equipment = self._extract_info(response, 'Materials/Components:')
+        detailed_info.qc.testing_detail = self._extract_info(response, 'Procedures/testing Details:')
+        detailed_info.qc.other_info = self._extract_info(response, 'Other Information:')
         item['todo_page_set'].remove(PageType.SUPPLIER_QC)
         yield item
 
