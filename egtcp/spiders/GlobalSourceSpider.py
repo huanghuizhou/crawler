@@ -78,7 +78,7 @@ class GlobalSourceSpider(scrapy.Spider):
         item = CompanyItem()
         url = 'http://hebeileader.manufacturer.globalsources.com/si/6008841464350/Homepage.htm'
         item['id'] = '6008841464350'
-        item['processed_page_set'] = set()
+        item['todo_page_set'] = set()
         item['url'] = url
         item['basic_info_en'] = models.BasicInfo()
         item['basic_info_cn'] = models.BasicInfo()
@@ -148,7 +148,7 @@ class GlobalSourceSpider(scrapy.Spider):
             item = CompanyItem()
             homepage_url = supplier_selector.xpath('h3[@class="title"]/a/@href').extract_first()
             item['id'] = extract_id(homepage_url)
-            item['processed_page_set'] = set()
+            item['todo_page_set'] = set()
 
             basic_info_en = models.BasicInfo()
             basic_info_en.name = supplier_selector.xpath('h3[@class="title"]/a/@title').extract_first()
@@ -225,34 +225,43 @@ class GlobalSourceSpider(scrapy.Spider):
         basic_info_en.registration_number = basic_info_cn.registration_number
 
         # other sub page link
+        todo_page_set = item['todo_page_set']
         company_profile_url = self._extract_sub_page_url_from_nav(response, 'Company Information')
         if company_profile_url:
+            todo_page_set.add(PageType.SUPPLIER_COMPANY_PROFILE)
             yield Request(company_profile_url, meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item})
         trade_show_url = self._extract_sub_page_url_from_nav(response, 'Trade Show')
         if trade_show_url:
+            todo_page_set.add(PageType.SUPPLIER_TRADE_SHOW)
             yield Request(trade_show_url, meta={'type': PageType.SUPPLIER_TRADE_SHOW, 'item': item})
         credit_profile_url = self._extract_sub_page_url(response, 'Business Registration Profile')
         if credit_profile_url:
+            todo_page_set.add(PageType.SUPPLIER_CREDIT_PROFILE)
             yield Request(credit_profile_url, meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item})
         service_url = self._extract_sub_page_url(response, 'Services and Support')
         if service_url:
+            todo_page_set.add(PageType.SUPPLIER_SERVICE)
             yield Request(service_url, meta={'type': PageType.SUPPLIER_SERVICE, 'item': item})
         certification_url = self._extract_sub_page_url(response, 'Certifications')
         if certification_url:
+            todo_page_set.add(PageType.SUPPLIER_CERTIFICATE)
             yield Request(certification_url, meta={'type': PageType.SUPPLIER_CERTIFICATE, 'item': item})
         factory_tour_url = self._extract_sub_page_url(response, 'Factory Tour')
         if factory_tour_url:
+            todo_page_set.add(PageType.SUPPLIER_FACTORY)
             yield Request(factory_tour_url, meta={'type': PageType.SUPPLIER_FACTORY, 'item': item})
         rnd_url = self._extract_sub_page_url(response, 'Research and Development')
         if rnd_url:
+            todo_page_set.add(PageType.SUPPLIER_R_D)
             yield Request(rnd_url, meta={'type': PageType.SUPPLIER_R_D, 'item': item})
         oem_url = self._extract_sub_page_url(response, 'OEM/ODM')
         if oem_url:
+            todo_page_set.add(PageType.SUPPLIER_OEM)
             yield Request(oem_url, meta={'type': PageType.SUPPLIER_OEM, 'item': item})
         qc_url = self._extract_sub_page_url(response, 'Quality Control')
         if qc_url:
+            todo_page_set.add(PageType.SUPPLIER_QC)
             yield Request(qc_url, meta={'type': PageType.SUPPLIER_QC, 'item': item})
-        item['processed_page_set'].add(PageType.SUPPLIER_MAIN_PAGE)
         yield item
 
     def parse_supplier_company_profile(self, response):
@@ -297,7 +306,7 @@ class GlobalSourceSpider(scrapy.Spider):
         certificate_info = item['certificate_info']
         certificate_info.export_countries = response.xpath(
             '//p[@class="fl c6 proDetTit" and text()="Certifications:"]/following-sibling::div/ul/li/text()[1]').extract()
-        item['processed_page_set'].add(PageType.SUPPLIER_COMPANY_PROFILE)
+        item['todo_page_set'].remove(PageType.SUPPLIER_COMPANY_PROFILE)
         yield item
 
     def parse_supplier_credit_profile(self, response):
@@ -306,8 +315,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_CREDIT_PROFILE)
+        yield item
 
     def parse_supplier_service(self, response):
         """
@@ -315,7 +325,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_SERVICE)
+        yield item
 
     def parse_supplier_certificate(self, response):
         """
@@ -323,7 +335,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_CERTIFICATE)
+        yield item
 
     def parse_supplier_factory(self, response):
         """
@@ -331,7 +345,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_FACTORY)
+        yield item
 
     def parse_supplier_r_d(self, response):
         """
@@ -339,7 +355,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_R_D)
+        yield item
 
     def parse_supplier_oem(self, response):
         """
@@ -347,7 +365,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_OEM)
+        yield item
 
     def parse_supplier_qc(self, response):
         """
@@ -355,7 +375,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_QC)
+        yield item
 
     def parse_supplier_trade_show(self, response):
         """
@@ -363,7 +385,9 @@ class GlobalSourceSpider(scrapy.Spider):
         :param response:
         :return:
         """
-        return []
+        item = response.meta['item']
+        item['todo_page_set'].remove(PageType.SUPPLIER_TRADE_SHOW)
+        yield item
 
     def _extract_info(self, response, text):
         """

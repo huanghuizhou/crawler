@@ -7,7 +7,6 @@
 
 from pymongo import MongoClient
 
-from egtcp.common import PROCESS_DONE_SET
 from egtcp.utils import to_dict
 
 
@@ -22,15 +21,15 @@ class GlobalSourcePipeline(object):
         supplier_id = item['id']
         data = to_dict(dict(item))
         data['_id'] = data.pop('id')
-        del data['processed_page_set']
+        data['done'] = False
+        del data['todo_page_set']
 
         supplier = self.collection.find_one({'_id': supplier_id})
         if not supplier:
-            data['done'] = False
             self.collection.insert_one(data)
         else:
             # deep_merge_dict(data, supplier)
-            if item['processed_page_set'] == PROCESS_DONE_SET:
+            if len(item['todo_page_set']) == 0:
                 data['done'] = True
             self.collection.replace_one({'_id': supplier_id}, data, upsert=True)
 
