@@ -76,8 +76,8 @@ class GlobalSourceSpider(scrapy.Spider):
         #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
         # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
         item = CompanyItem()
-        url = 'http://hebeileader.manufacturer.globalsources.com/si/6008841464350/Homepage.htm'
-        item['id'] = '6008841464350'
+        url = 'http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/Homepage.htm'
+        item['id'] = '6008800522305'
         item['todo_page_set'] = set()
         item['url'] = url
         item['basic_info_en'] = models.BasicInfo()
@@ -298,7 +298,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.capacity.monthly_capacity = self._extract_info(response, 'Monthly capacity:')
         detailed_info.researchAndDevelop.rd_staff_amount = self._extract_info(response, 'No. of R&D Staff:')
         detailed_info.primary_competitive_advantage = self._extract_info_list(response,
-                                                                                'Primary Competitive Advantages:')
+                                                                              'Primary Competitive Advantages:')
         detailed_info.factory_size_in_square_meters = self._extract_info(response, 'Factory Size in Square Meters:')
         detailed_info.investment_on_manufacturing_equipment = self._extract_info(response,
                                                                                  'Investment on Manufacturing Equipment:')
@@ -343,6 +343,12 @@ class GlobalSourceSpider(scrapy.Spider):
         :return:
         """
         item = response.meta['item']
+
+        trade_info = item['trade_info']
+        trade_info.sample_policy = self._extract_info(response, 'Sample Availability & Policy:')
+        trade_info.warranty = self._extract_info(response, 'Guarantees/Warranties/Terms and Conditions:')
+        trade_info.export_import_processing_support = self._extract_info(response, 'Export/Import Processing Support:')
+        trade_info.after_sales_service = self._extract_info(response, 'After Sales Service:')
         item['todo_page_set'].remove(PageType.SUPPLIER_SERVICE)
         yield item
 
