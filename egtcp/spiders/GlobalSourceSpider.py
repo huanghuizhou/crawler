@@ -73,22 +73,22 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def start_crawl(self, response):
         # OK, we're in, let's start crawling the protected pages
-        # for url in self.start_urls:
-        #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
+        for url in self.start_urls:
+            yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
         # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
-        item = CompanyItem()
-        url = 'http://www.chinasuppliers.globalsources.com/china-suppliers/1-Shackle.htm'
-        item['id'] = '6008800522305'
-        item['todo_page_set'] = set()
-        item['url'] = url
-        item['basic_info_en'] = models.BasicInfo()
-        item['basic_info_cn'] = models.BasicInfo()
-        item['contact_info'] = models.ContactInfo()
-        item['certificate_info'] = models.CertificateInfo()
-        item['trade_info'] = models.TradeInfo()
-        item['detailed_info'] = models.EnterpriseDetailInfo()
-        yield scrapy.Request(url,
-                             meta={'type': PageType.SUPPLIER_LIST, 'item': item})
+        # item = CompanyItem()
+        # url = 'http://www.chinasuppliers.globalsources.com/china-suppliers/1-Shackle.htm'
+        # item['id'] = '6008800522305'
+        # item['todo_page_set'] = set()
+        # item['url'] = url
+        # item['basic_info_en'] = models.BasicInfo()
+        # item['basic_info_cn'] = models.BasicInfo()
+        # item['contact_info'] = models.ContactInfo()
+        # item['certificate_info'] = models.CertificateInfo()
+        # item['trade_info'] = models.TradeInfo()
+        # item['detailed_info'] = models.EnterpriseDetailInfo()
+        # yield scrapy.Request(url,
+        #                      meta={'type': PageType.SUPPLIER_LIST, 'item': item})
 
     def parse(self, response):
         # do stuff with the logged in response
