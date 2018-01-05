@@ -243,48 +243,55 @@ class GlobalSourceSpider(scrapy.Spider):
 
         # other sub page link
         todo_page_set = item['todo_page_set']
+        request_list = []
         company_profile_url = self._extract_sub_page_url_from_nav(response, 'Company Information')
         if company_profile_url:
             todo_page_set.add(PageType.SUPPLIER_COMPANY_PROFILE)
-            yield Request(complete_url(response.url, company_profile_url),
-                          meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item})
+            request_list.append(Request(complete_url(response.url, company_profile_url),
+                                        meta={'type': PageType.SUPPLIER_COMPANY_PROFILE, 'item': item}))
         trade_show_url = self._extract_sub_page_url_from_nav(response, 'Trade Show')
         if trade_show_url:
             todo_page_set.add(PageType.SUPPLIER_TRADE_SHOW)
-            yield Request(complete_url(response.url, trade_show_url),
-                          meta={'type': PageType.SUPPLIER_TRADE_SHOW, 'item': item})
+            request_list.append(Request(complete_url(response.url, trade_show_url),
+                                        meta={'type': PageType.SUPPLIER_TRADE_SHOW, 'item': item}))
         credit_profile_url = self._extract_sub_page_url(response, 'Business Registration Profile')
         if credit_profile_url:
             todo_page_set.add(PageType.SUPPLIER_CREDIT_PROFILE)
-            yield Request(complete_url(response.url, credit_profile_url),
-                          meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item})
+            request_list.append(Request(complete_url(response.url, credit_profile_url),
+                                        meta={'type': PageType.SUPPLIER_CREDIT_PROFILE, 'item': item}))
         service_url = self._extract_sub_page_url(response, 'Services and Support')
         if service_url:
             todo_page_set.add(PageType.SUPPLIER_SERVICE)
-            yield Request(complete_url(response.url, service_url),
-                          meta={'type': PageType.SUPPLIER_SERVICE, 'item': item})
+            request_list.append(Request(complete_url(response.url, service_url),
+                                        meta={'type': PageType.SUPPLIER_SERVICE, 'item': item}))
         certification_url = self._extract_sub_page_url(response, 'Certifications')
         if certification_url:
             todo_page_set.add(PageType.SUPPLIER_CERTIFICATE)
-            yield Request(complete_url(response.url, certification_url),
-                          meta={'type': PageType.SUPPLIER_CERTIFICATE, 'item': item})
+            request_list.append(Request(complete_url(response.url, certification_url),
+                                        meta={'type': PageType.SUPPLIER_CERTIFICATE, 'item': item}))
         factory_tour_url = self._extract_sub_page_url(response, 'Factory Tour')
         if factory_tour_url:
             todo_page_set.add(PageType.SUPPLIER_FACTORY)
-            yield Request(complete_url(response.url, factory_tour_url),
-                          meta={'type': PageType.SUPPLIER_FACTORY, 'item': item})
+            request_list.append(Request(complete_url(response.url, factory_tour_url),
+                                        meta={'type': PageType.SUPPLIER_FACTORY, 'item': item}))
         rnd_url = self._extract_sub_page_url(response, 'Research and Development')
         if rnd_url:
             todo_page_set.add(PageType.SUPPLIER_R_D)
-            yield Request(complete_url(response.url, rnd_url), meta={'type': PageType.SUPPLIER_R_D, 'item': item})
+            request_list.append(
+                Request(complete_url(response.url, rnd_url), meta={'type': PageType.SUPPLIER_R_D, 'item': item}))
         oem_url = self._extract_sub_page_url(response, 'OEM/ODM')
         if oem_url:
             todo_page_set.add(PageType.SUPPLIER_OEM)
-            yield Request(complete_url(response.url, oem_url), meta={'type': PageType.SUPPLIER_OEM, 'item': item})
+            request_list.append(
+                Request(complete_url(response.url, oem_url), meta={'type': PageType.SUPPLIER_OEM, 'item': item}))
         qc_url = self._extract_sub_page_url(response, 'Quality Control')
         if qc_url:
             todo_page_set.add(PageType.SUPPLIER_QC)
-            yield Request(complete_url(response.url, qc_url), meta={'type': PageType.SUPPLIER_QC, 'item': item})
+            request_list.append(
+                Request(complete_url(response.url, qc_url), meta={'type': PageType.SUPPLIER_QC, 'item': item}))
+        
+        for req in request_list:
+            yield req
         yield item
 
     def parse_supplier_company_profile(self, response):
