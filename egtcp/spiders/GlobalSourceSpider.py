@@ -145,30 +145,21 @@ class GlobalSourceSpider(scrapy.Spider):
                 raise RuntimeError("Cannot extract id from homepage url " + url)
             return m.group(1)
 
-        for supplier_selector in response.xpath('//div[@class="tcs_supplierInfo"]'):
+        def init_item(supplier_id):
             item = CompanyItem()
-            homepage_url = supplier_selector.xpath('h3[@class="title"]/a/@href').extract_first()
-            item['id'] = extract_id(homepage_url)
+            item['id'] = supplier_id
             item['todo_page_set'] = set()
-
-            basic_info_en = models.BasicInfo()
-            basic_info_en.name = supplier_selector.xpath('h3[@class="title"]/a/@title').extract_first()
-            basic_info_en.registration_location = supplier_selector.xpath('p[@class="mt15"]/text()').extract()
-            # basic_info_en.type = supplier_selector.xpath(
-            #     'p[@class="mt5"]/span[text()[contains(.,"Business Type:")]]/parent::node()/text()').extract()
-            basic_info_en.business_scope = ','.join(supplier_selector.xpath(
-                'p[@class="mt5"]/span[text()[contains(.,"Main Products:")]]/parent::node()/a/text()').extract())
-            item['basic_info_en'] = basic_info_en
-
-            certificate_info = models.CertificateInfo()
-            certificate_info.certificate = ''.join(supplier_selector.xpath(
-                'p[@class="mt5"]/span[text()[contains(.,"Company Cert:")]]/parent::node()/text()').extract())
-            item['certificate_info'] = certificate_info
-
+            item['basic_info_en'] = models.BasicInfo()
+            item['certificate_info'] = models.CertificateInfo()
             item['basic_info_cn'] = models.BasicInfo()
             item['contact_info'] = models.ContactInfo()
             item['trade_info'] = models.TradeInfo()
             item['detailed_info'] = models.EnterpriseDetailInfo()
+            return item
+
+        for supplier_selector in response.xpath('//div[@class="tcs_supplierInfo"]'):
+            homepage_url = supplier_selector.xpath('h3[@class="title"]/a/@href').extract_first()
+            item = init_item(extract_id(homepage_url))
             yield Request(complete_url(response.url, homepage_url),
                           meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
 
