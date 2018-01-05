@@ -4,8 +4,9 @@
 
 from pymongo import MongoClient
 
+DB_NAME = 'dadaoDb'
 COLLECTION_NAME = 'GlobalSourceSuppliers'
 
 MONGO_CLIENT = MongoClient(host='192.168.2.203', port=27017, username="gt_rw", password="greattao5877",
-                           authSource="dadaoDb",
+                           authSource=DB_NAME,
                            authMechanism="SCRAM-SHA-1")
