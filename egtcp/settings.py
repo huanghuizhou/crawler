@@ -93,3 +93,4 @@ ITEM_PIPELINES = {
 
 RETRY_TIMES = 5
 LOG_FORMAT = "%(asctime)s [%(name)s:%(lineno)d] %(levelname)s: %(message)s"
+# LOG_LEVEL = 'INFO'

@@ -11,7 +11,7 @@ from egtcp.common import PageType
 from egtcp.items import CompanyItem
 from egtcp.utils import complete_url
 
-REGEX_PATTERN_ID = re.compile('.*/si/(\d*)/Home.*')
+REGEX_PATTERN_ID = re.compile('.*/(\d*)/Homepage.htm*')
 
 
 class GlobalSourceSpider(scrapy.Spider):
@@ -73,22 +73,22 @@ class GlobalSourceSpider(scrapy.Spider):
 
     def start_crawl(self, response):
         # OK, we're in, let's start crawling the protected pages
-        for url in self.start_urls:
-            yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
-        # # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
-        # item = CompanyItem()
-        # url = 'http://xmzhxi.manufacturer.globalsources.com/si/6008800522305/Homepage.htm'
-        # item['id'] = '6008800522305'
-        # item['todo_page_set'] = set()
-        # item['url'] = url
-        # item['basic_info_en'] = models.BasicInfo()
-        # item['basic_info_cn'] = models.BasicInfo()
-        # item['contact_info'] = models.ContactInfo()
-        # item['certificate_info'] = models.CertificateInfo()
-        # item['trade_info'] = models.TradeInfo()
-        # item['detailed_info'] = models.EnterpriseDetailInfo()
-        # yield scrapy.Request(url,
-        #                      meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
+        # for url in self.start_urls:
+        #     yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
+        # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
+        item = CompanyItem()
+        url = 'http://www.chinasuppliers.globalsources.com/china-suppliers/1-Shackle.htm'
+        item['id'] = '6008800522305'
+        item['todo_page_set'] = set()
+        item['url'] = url
+        item['basic_info_en'] = models.BasicInfo()
+        item['basic_info_cn'] = models.BasicInfo()
+        item['contact_info'] = models.ContactInfo()
+        item['certificate_info'] = models.CertificateInfo()
+        item['trade_info'] = models.TradeInfo()
+        item['detailed_info'] = models.EnterpriseDetailInfo()
+        yield scrapy.Request(url,
+                             meta={'type': PageType.SUPPLIER_LIST, 'item': item})
 
     def parse(self, response):
         # do stuff with the logged in response
@@ -157,11 +157,35 @@ class GlobalSourceSpider(scrapy.Spider):
             item['detailed_info'] = models.EnterpriseDetailInfo()
             return item
 
-        for supplier_selector in response.xpath('//div[@class="tcs_supplierInfo"]'):
-            homepage_url = supplier_selector.xpath('h3[@class="title"]/a/@href').extract_first()
+        # 供应商详情
+        top_suppliers = response.xpath('//div[@class="tcs_supplierInfo"]/h3/a/@href').extract()
+        other_suppliers = response.xpath('//div[@class="unverified_detail"]/p[1]/a/@href').extract()
+        for homepage_url in top_suppliers + other_suppliers:
             item = init_item(extract_id(homepage_url))
             yield Request(complete_url(response.url, homepage_url),
                           meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
+
+        # 只在列表第一页处理后续分页
+        if 'factories' in response.url:
+            return
+
+        # 分页
+        # 巨量分页
+        total_page_str = response.xpath(
+            '//p[@class="pagination pagination_mar"]/span[@class="nonLink"]/text()').extract_first()
+        if not total_page_str:
+            # 少量分页
+            total_page_str = response.xpath(
+                '//p[@class="pagination pagination_mar"]/a[not(@class)][last()]/text()').extract_first()
+        # 如果还没有，说明只有一页
+        if not total_page_str:
+            return
+        total_page = int(total_page_str)
+        keyword = response.url.rsplit('/', 1)[-1].split('.', 1)[0]
+        for page_no in range(2, total_page + 1):
+            page_url = "http://www.chinasuppliers.globalsources.com/china-suppliers/factories/%s/%d.htm" % (
+                keyword, (page_no - 1) * 40)
+            yield Request(page_url, meta={'type': PageType.SUPPLIER_LIST})
 
     def parse_supplier_main_page(self, response):
         """
@@ -467,6 +491,7 @@ class GlobalSourceSpider(scrapy.Spider):
         def extract_info(text):
             xpath = 'div/div/p[text()[contains(.,"%s")]]/following-sibling::p/text()' % text
             return selector.xpath(xpath).extract_first()
+
         item = response.meta['item']
 
         detailed_info = item['detailed_info']
