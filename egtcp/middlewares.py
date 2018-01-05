@@ -8,7 +8,7 @@
 from scrapy import signals
 from scrapy.exceptions import IgnoreRequest
 
-from egtcp.dao import MONGO_CLIENT
+from egtcp.dao import MONGO_CLIENT, COLLECTION_NAME
 
 
 class GlobalSourceSpiderMiddleware(object):
@@ -62,7 +62,7 @@ class GlobalSourceSpiderMiddleware(object):
 class GlobalSourceDownloaderMiddleware(object):
     def __init__(self):
         self.client = MONGO_CLIENT
-        self.collection = self.client['dadaoDb']['test1']
+        self.collection = self.client['dadaoDb'][COLLECTION_NAME]
 
     def process_request(self, request, spider):
         if 'item' not in request.meta:

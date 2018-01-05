@@ -6,14 +6,14 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-from egtcp.dao import MONGO_CLIENT
+from egtcp.dao import MONGO_CLIENT, COLLECTION_NAME
 from egtcp.utils import to_dict
 
 
 class GlobalSourcePipeline(object):
     def __init__(self):
         self.client = MONGO_CLIENT
-        self.collection = self.client['dadaoDb']['test1']
+        self.collection = self.client['dadaoDb'][COLLECTION_NAME]
 
     def process_item(self, item, spider):
         supplier_id = item['id']
