@@ -54,7 +54,7 @@ COOKIES_ENABLED = True
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'egtcp.middlewares.GlobalSourceDownloaderMiddleware':     600,
+    'egtcp.middlewares.GlobalSourceDownloaderMiddleware':     50,
     'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 700,
 }
 
