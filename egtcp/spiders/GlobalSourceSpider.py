@@ -165,27 +165,11 @@ class GlobalSourceSpider(scrapy.Spider):
             yield Request(complete_url(response.url, homepage_url),
                           meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
 
-        # 只在列表第一页处理后续分页
-        if 'factories' in response.url:
-            return
-
-        # 分页
-        # 巨量分页
-        total_page_str = response.xpath(
-            '//p[@class="pagination pagination_mar"]/span[@class="nonLink"]/text()').extract_first()
-        if not total_page_str:
-            # 少量分页
-            total_page_str = response.xpath(
-                '//p[@class="pagination pagination_mar"]/a[not(@class)][last()]/text()').extract_first()
-        # 如果还没有，说明只有一页
-        if not total_page_str:
-            return
-        total_page = int(total_page_str)
-        keyword = response.url.rsplit('/', 1)[-1].split('.', 1)[0]
-        for page_no in range(2, total_page + 1):
-            page_url = "http://www.chinasuppliers.globalsources.com/china-suppliers/factories/%s/%d.htm" % (
-                keyword, (page_no - 1) * 40)
-            yield Request(page_url, meta={'type': PageType.SUPPLIER_LIST})
+        next_page_url = response.xpath(
+            '//p[@class="pagination pagination_mar"]/a[@class="nextPage"]/@href').extract_first()
+        if next_page_url:
+            yield Request(complete_url(response.url, next_page_url),
+                          meta={'type': PageType.SUPPLIER_LIST})
 
     def parse_supplier_main_page(self, response):
         """
