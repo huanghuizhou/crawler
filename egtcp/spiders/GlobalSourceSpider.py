@@ -227,7 +227,8 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.description = ''.join(response.xpath('//div[@id="allContent"]/child::node()').extract())
 
         basic_info_cn = item['basic_info_cn']
-        basic_info_cn.name = response.xpath('//div[@class="spSnaSection"]/p/a/text()').extract_first()
+        basic_info_cn.name = response.xpath(
+            '//div[@class="spSnaSection"]/p/em[text()[contains(.,"Registered Company:")]]/parent::node()/a/text()').extract_first()
         basic_info_cn.registration_number = response.xpath(
             '//div[@class="spSnaSection"]/p/em[text()[contains(.,"Registration Number: ")]]/parent::node()/text()') \
             .extract_first()
@@ -289,7 +290,7 @@ class GlobalSourceSpider(scrapy.Spider):
             todo_page_set.add(PageType.SUPPLIER_QC)
             request_list.append(
                 Request(complete_url(response.url, qc_url), meta={'type': PageType.SUPPLIER_QC, 'item': item}))
-        
+
         for req in request_list:
             yield req
         yield item
