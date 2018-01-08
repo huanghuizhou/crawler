@@ -77,8 +77,8 @@ class GlobalSourceSpider(scrapy.Spider):
             yield scrapy.Request(url, meta={'type': PageType.CATEGORY_LIST})
         # todo 移除调试代码，调试从某个固定供应商主页进去，不过列表
         # item = CompanyItem()
-        # url = 'http://www.chinasuppliers.globalsources.com/china-suppliers/1-Shackle.htm'
-        # item['id'] = '6008800522305'
+        # url = 'http://epoch.manufacturer.globalsources.com/si/6008851852171/Homepage.htm'
+        # item['id'] = '6008851852171'
         # item['todo_page_set'] = set()
         # item['url'] = url
         # item['basic_info_en'] = models.BasicInfo()
@@ -88,7 +88,7 @@ class GlobalSourceSpider(scrapy.Spider):
         # item['trade_info'] = models.TradeInfo()
         # item['detailed_info'] = models.EnterpriseDetailInfo()
         # yield scrapy.Request(url,
-        #                      meta={'type': PageType.SUPPLIER_LIST, 'item': item})
+        #                      meta={'type': PageType.SUPPLIER_MAIN_PAGE, 'item': item})
 
     def parse(self, response):
         # do stuff with the logged in response
