@@ -74,21 +74,28 @@ def save_trade_wow(data):
         collection.replace_one({'_id': trade['_id']}, trade, upsert=True)
 
 
-def save_trade_info(supplier_name, aggregations):
+def save_trade_info(supplier, aggregations):
+    name = supplier['basic_info_en']['name']
+    try:
+        name_cn = supplier['basic_info_cn']['name']
+    except KeyError:
+        name_cn = ''
+
     try:
         items = aggregations['consigneeName']['items']
     except KeyError:
-        logger.error('aggregations items not found for %s' % supplier_name)
+        logger.error('aggregations items not found for %s' % name)
         return
     collection = MONGO_CLIENT[DB_NAME][TRADE_INFO_COLLECTION]
-    collection.delete_many({'supplier': supplier_name})
+    collection.delete_many({'supplier': name})
     for item in items:
         if 'key' not in item:
             logger.error('key not found in item %s' % str(item))
             continue
         collection.insert_one({
-            'supplier': supplier_name,
-            'buyer':    item['key']
+            'supplier':    name,
+            'supplier_cn': name_cn,
+            'buyer':       item['key']
         })
 
 
@@ -107,7 +114,7 @@ def main():
             continue
         trade = get_trade_list(name)
         save_trade_wow(trade['data'])
-        save_trade_info(name, trade['aggregations'])
+        save_trade_info(supplier, trade['aggregations'])
         if len(trade['data']) > 0:
             logger.info('supplier %s(%s) trade info saved' % (supplier_id, name))
 
