@@ -108,6 +108,8 @@ def main():
         trade = get_trade_list(name)
         save_trade_wow(trade['data'])
         save_trade_info(name, trade['aggregations'])
+        if len(trade['data']) > 0:
+            logger.info('supplier %s(%s) trade info saved' % (supplier_id, name))
 
 
 if __name__ == '__main__':
