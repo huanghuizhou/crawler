@@ -54,7 +54,7 @@ COOKIES_ENABLED = True
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'egtcp.middlewares.GlobalSourceDownloaderMiddleware':     50,
+    'egtcp.middlewares.GlobalSourceDownloaderMiddleware':     0,
     'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 700,
 }
 
@@ -93,4 +93,5 @@ ITEM_PIPELINES = {
 
 RETRY_TIMES = 5
 LOG_FORMAT = "%(asctime)s [%(name)s:%(lineno)d] %(levelname)s: %(message)s"
+DUPEFILTER_DEBUG = True
 # LOG_LEVEL = 'INFO'
