@@ -1,0 +1,1759 @@
+{
+	"total": 16,
+	"data": [{
+		"id": "AV6J2qVWBjmjC2rhisBs",
+		"country": "America",
+		"actArrivalDate": "2016-12-22",
+		"productDesc": "SILICONE NECKLACE; SILICONE BRACELET; SILIC ONE PENDANT",
+		"consigneeName": "QUINTESSENTIAL TOTS LLC",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "3780.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "BUILDING 8TH XINMU INDUSTRIAL AREA PINGHU TOWN SHENZHEN CITY CHINA"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "DBA ITZY RITZY 1665 QUINCY AVE #179 NAPERVILLE IL 60540"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "3780.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "674.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE; SILICONE BRACELET; SILIC ONE PENDANT"
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-12-22"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-12-22"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "PPILSZX06072"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "APLU750143828"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "PPIL"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "HYUNDAI LOYALTY"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "041E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "57078, YANTIAN"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "3001, SEATTLE, WA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "YANTIAN"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.5"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "TCLU4447314"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "4000*806*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "42G0"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "SILICONE NECKLACE; SILICONE BRACELET; SILIC ONE PENDANT"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6J2ExDBjmjC2rhhVAk",
+		"country": "America",
+		"actArrivalDate": "2016-12-08",
+		"productDesc": "SILICONE NECKLACE",
+		"consigneeName": "QUINTESSENTIAL TOTS LLC",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "HK, HONG KONG",
+		"weight": "1025.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "BUILDING 8TH XINMU INDUSTRIAL AREA PINGHU TOWN SHENZHEN CITY CHINA HK"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "DBA ITZY RITZY 1665 QUINCY AVE #179 NAPERVILLE IL 60540"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "1025.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "68.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE"
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-12-08"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-12-12"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "CHKMSCC611042406"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "OOLU2579586701"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "CHKM, CHEROKEE MILLING COMPANY INC"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "OOCL HO CHI MINH CITY"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "009E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "58201, HONG KONG"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2709, LONG BEACH, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "HONG KONG"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "HK, HONG KONG"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.5"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "OOLU9704245"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "4000*900*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "45G1"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "ITZY RITZY"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6J1lFCBjmjC2rhgKe4",
+		"country": "America",
+		"actArrivalDate": "2016-12-04",
+		"productDesc": "SILICONE BOTTLE",
+		"consigneeName": "DOT & DOT INTERNATIONAL",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "632.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "KEAN INDUSTRIAL PARK 61# CAIZI NORTH ROAD PINGHU LONGGANG DISTRICT SHENZHEN CHINA"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "DOT & DOT INTERNATIONAL"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "10685-B HAZELHURST DR #16315 HOUSTON TEXAS 77043 USA"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "632.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "58.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE BOTTLE"
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-12-04"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-12-04"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "SNYLSZPE16111786"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "EGLV149603248658"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "SNYL"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "EVER UNISON"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "157E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "10"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "57078, YANTIAN"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2704, LOS ANGELES, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "YANTIAN, CHINA"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.5"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "CM"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "EGSU9144704"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "4000*906*802"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "4EG0"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "DOT & DOT INTERNATIONAL"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "10685-B HAZELHURST DR #16315 HOUSTON TEXAS 77043 USA"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "DOT&DOT 3OZ TRAVEL BOTTLE (4-PIECE SET,PURPLE/PINK/ GREEN/ORANGE) QTY:38 SETS G.W.:11.6KGS MEAS: 46CM 36CM 28CM MADE IN CHINA CARTON NO.:5858 B"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6Jo3NuBjmjC2rhB3Aa",
+		"country": "America",
+		"actArrivalDate": "2016-11-05",
+		"productDesc": "SILICONE NECKLACE;SILICONE BRACELET",
+		"consigneeName": "QUINTESSENTIAL TOTS LLC",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "2010.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "BUILDING 8TH XINMU INDUSTRIAL AREA PINGHU TOWN SHENZHEN CITY"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "DBA ITZY RITZY 1665 QUINCY AVE #179 NAPERVILLE IL 60540"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "2010.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "403.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE;SILICONE BRACELET"
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-11-05"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-11-03"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "PPILSZX05888"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "APLU750084929"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "PPIL"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "HYUNDAI MERCURY"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "053E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "57078, YANTIAN"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "3001, SEATTLE, WA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "YANTIAN"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.0"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "FCIU3431531"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "2000*806*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "22G0"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "NO MARKS"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6Jp6c9BjmjC2rhEWoC",
+		"country": "America",
+		"actArrivalDate": "2016-10-05",
+		"productDesc": "SILICONE NECKLACE;SILICONE BRACELET; SILICONE PENDAT",
+		"consigneeName": "QUINTESSENTIAL TOTS LLC",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "1160.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "BUILDING 8TH XINMU INDUSTRIAL AREA PINGHU TOWN SHENZHEN CITY CHINA SHENZHEN CITY CN"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "1665 QUINCY AVE #179 NAPERVILLE IL 60540 NAPERVILLE IL 60540 US"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "1160.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "188.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE;SILICONE BRACELET; SILICONE PENDAT"
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-10-05"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-10-10"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "CHKMSCC609068103"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "OOLU2576854420"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "CHKM, CHEROKEE MILLING COMPANY INC"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "OOCL TAIPEI"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "010E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "58201, HONG KONG"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2709, LONG BEACH, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "SHENZHEN"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.0"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "OOLU8941962"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "2000*806*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": ""
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "ITZY RITZY"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6JyTgfBjmjC2rhYOQX",
+		"country": "America",
+		"actArrivalDate": "2016-09-06",
+		"productDesc": "SILICONE NECKLACE SILICONE TRAVEL BOTTLE + THIS SHIPMENT CONTAINS NO SOLID WOOD PACKAGING MATERIALS . . . . . . . . .",
+		"consigneeName": "DOT & DOT INTL 10685B HAZELHURST DR",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "1464.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "KEAN INDUSTRIAL PARK 61# CAIZI NORTH ROAD PINGHU LONGGANG DIST SHENZHEN GUANGDONG CHINA SHENZHEN CN"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "DOT & DOT INTL 10685B HAZELHURST DR"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "#16316 HOUSTON TEXAS 77043 U S A HOUSTON US"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "1464.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "137.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE SILICONE TRAVEL BOTTLE + THIS SHIPMENT CONTAINS NO SOLID WOOD PACKAGING MATERIALS . . . . . . . . ."
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-09-06"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-09-06"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "PACJMFHKL25395"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "COSU6120923113"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "PACJ"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "YM UNANIMITY"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "25E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "57078, YANTIAN"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2704, LOS ANGELES, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "SHENZHEN,CHINA"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.62"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "PCS"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "DRYU4565667"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "4500*900*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "9400"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "PRODUCT NAME: SILICONE TEETHONG NECKLAXCE BRACELET VIOLET RED ITEM NO.: NK011-5 QTY: 86 SETS G.W.: 11.15 KGS MEAS: 46 + 36CM + 28CM CARTON NO:-20 DOT&DOT 3OZ TRAVEL BOTTLE (4-PIECE SET, WHITE BLUE GREEN PURPLE) QTY: 38 SETS G.W.: 11.6 KGS MEAS: 46CM+36CM+28CM CARTON NO.: 1-10 DOT&DOT 1.253OZ TRAVEL BOTTLE (4-PIECE SET, WHITE BLUE GREEN PURPLE) QTY: 38 SETS G.W.: 7.5 KGS MEAS: 46CM+36CM+28CM CARTON NO.: 1-107"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6J0Z40BjmjC2rhc_bj",
+		"country": "America",
+		"actArrivalDate": "2016-08-17",
+		"productDesc": "SILICONE NECKLACE SILICONE BRACELET SILICONE PENDAT",
+		"consigneeName": "QUINTESSENTIAL TOTS LLC",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "4870.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "BUILDING 8TH XINMU INDUSTRIAL AREA PINGHU TOWN SHENZHEN CITY CHINA"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "DBA ITZY RITZY 1665 QUINCYAVE NO 179 NAPERVILLE IL 60540"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "4870.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "978.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE SILICONE BRACELET SILICONE PENDAT"
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-08-17"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-08-16"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "OSTISZCHI1670987"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "HDMUYNCI8322856"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "OSTI, ON-SITE TRUCKING CO"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "OOCL BEIJING"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "045E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "57078, YANTIAN"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2709, LONG BEACH, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "YANTIAN"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.5"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "TGHU5186528"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "4000*806*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "42G0"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "DBA ITZY RITZY 1665 QUINCYAVE NO 179 NAPERVILLE IL 60540"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "ITZY RITZY"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6J08OTBjmjC2rhecj9",
+		"country": "America",
+		"actArrivalDate": "2016-08-03",
+		"productDesc": "SILICONE NECKLACE;SILICONE BRACELET;SILICONE PENDAT . . . . .",
+		"consigneeName": "QUINTESSENTIAL TOTS LLC",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "HK, HONG KONG",
+		"weight": "1126.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "BUILDING 8TH XINMU INDUSTRIAL AREA PINGHU TOWN SHENZHEN CITY CHINA SHENZHEN CITY CN"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "DBA ITZY RITZY 1665 QUINCY AVE #179 NAPERVILLE IL 60540 NAPERVILLE IL 60540 US"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "1126.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "177.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE;SILICONE BRACELET;SILICONE PENDAT . . . . ."
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-08-03"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-08-08"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "CHKMSCC607063001"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "OOLU2574705591"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "CHKM, CHEROKEE MILLING COMPANY INC"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "OOCL HO CHI MINH CITY"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "007E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "58201, HONG KONG"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2709, LONG BEACH, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "SHEN ZHEN"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "HK, HONG KONG"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.5"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "OOLU9443558"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "4000*900*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "45G0"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "FROM:SHENZHEN KEAN SILICONE PRODUCT CO.,LTD TO:GUEST KELLY DOUGLAS (ITZY?RITZY) ITEMS:SILICONE PRODUCTS COLOR:? COUNTRY OF ORIGIN:MADE IN CHINA CARTON?NO.: CARTON"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6JvItjBjmjC2rhRFdE",
+		"country": "America",
+		"actArrivalDate": "2016-07-28",
+		"productDesc": "SILICONE TRAVEL BOTTLE + THIS SHIPMENT CONTAINS NO SOLID WOOD PACKAGING MATERIALS . .",
+		"consigneeName": "DOT & DOT INTL",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "414.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "KEAN INDUSTRIAL PARK 61# CAIZI NORTH ROAD PINGHU LONGGANG DISTRICT SHENZHEN CHINA SHENZHEN CN"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "DOT & DOT INTL"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "10685-B HAZELHURST DR #16316 HOUSTON TEXAS 77043 USA HOUSTON US"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "414.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "41.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE TRAVEL BOTTLE + THIS SHIPMENT CONTAINS NO SOLID WOOD PACKAGING MATERIALS . ."
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-07-28"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-07-26"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "PACJMFHKL25261"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "MOLU13018732531"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "PACJ"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "OOCL MEMPHIS"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "024E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "57078, YANTIAN"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2709, LONG BEACH, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "SHENZHEN,CHINA"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.62"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "PCS"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "TEMU8049018"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "4500*900*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "9500"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "DOT&DOT 3OZ TRAVEL BOTTLE (4-PIECE SET, PURPLE PINK GREEN ORANGE) QTY: 38 SETS G.W.: 11.60 KGS MEAS: 46CM+36CM+28CM CARTON NO.: 41-41"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}, {
+		"id": "AV6JvAmtBjmjC2rhQ4J6",
+		"country": "America",
+		"actArrivalDate": "2016-07-11",
+		"productDesc": "SILICONE NECKLACE SILICONE BRACELETSILICON E PENDAT",
+		"consigneeName": "QUINTESSENTIAL TOTS LLC",
+		"shipperName": "<em>SHENZHEN</em> <em>KEAN</em> <em>SILICONE</em> <em>PRODUCT</em> <em>CO</em> <em>LTD</em>",
+		"hsCode": "391000",
+		"originCountry": "CN, CHINA",
+		"weight": "2138.0",
+		"producerName": null,
+		"purchase": {
+			"shipperName": {
+				"cnKey": "供应商",
+				"key": "shipperName",
+				"value": "SHENZHEN KEAN SILICONE PRODUCT CO LTD"
+			},
+			"shipperAddr": {
+				"cnKey": "供应商地址",
+				"key": "shipperAddr",
+				"value": "BUILDING 8TH XINMU INDUSTRIAL AREA PINGHU TOWN SHENZHEN CITY CHINA"
+			},
+			"consigneeName": {
+				"cnKey": "采购商",
+				"key": "consigneeName",
+				"value": "QUINTESSENTIAL TOTS LLC"
+			},
+			"consigneeAddr": {
+				"cnKey": "采购商地址",
+				"key": "consigneeAddr",
+				"value": "DBA ITZY RITZY 1665 QUINCY AVE #179 NAPERVILLE IL 60540"
+			}
+		},
+		"product": {
+			"weight": {
+				"cnKey": "重量",
+				"key": "weight",
+				"value": "2138.0"
+			},
+			"quantity": {
+				"cnKey": "数量",
+				"key": "quantity",
+				"value": "419.0"
+			},
+			"measure": {
+				"cnKey": "体积",
+				"key": "measure",
+				"value": "0.0"
+			},
+			"productDesc": {
+				"cnKey": "产品描述",
+				"key": "productDesc",
+				"value": "SILICONE NECKLACE SILICONE BRACELETSILICON E PENDAT"
+			},
+			"hsCode": {
+				"cnKey": "海关编码",
+				"key": "hsCode",
+				"value": "391000"
+			}
+		},
+		"other": {
+			"actArrivalDate": {
+				"cnKey": "到港日期",
+				"key": "actArrivalDate",
+				"value": "2016-07-11"
+			},
+			"estiArrivalDate": {
+				"cnKey": "预估到港日期",
+				"key": "estiArrivalDate",
+				"value": "2016-07-11"
+			},
+			"bol": {
+				"cnKey": "提单号",
+				"key": "bol",
+				"value": "PPILSZX13117"
+			},
+			"masterBol": {
+				"cnKey": "主提单号",
+				"key": "masterBol",
+				"value": "APLU078981757"
+			},
+			"carrier": {
+				"cnKey": "承运人",
+				"key": "carrier",
+				"value": "PPIL"
+			},
+			"vessel": {
+				"cnKey": "船名",
+				"key": "vessel",
+				"value": "APL NEW YORK"
+			},
+			"voyage": {
+				"cnKey": "提单号",
+				"key": "voyage",
+				"value": "025E"
+			},
+			"transType": {
+				"cnKey": "运输类型",
+				"key": "transType",
+				"value": "11"
+			},
+			"loadingPort": {
+				"cnKey": "装货港",
+				"key": "loadingPort",
+				"value": "57078, YANTIAN"
+			},
+			"unloadingPort": {
+				"cnKey": "卸货港",
+				"key": "unloadingPort",
+				"value": "2704, LOS ANGELES, CA"
+			},
+			"placeOfReceipt": {
+				"cnKey": "预装运地",
+				"key": "placeOfReceipt",
+				"value": "YANTIAN"
+			},
+			"originCountry": {
+				"cnKey": "原产国",
+				"key": "originCountry",
+				"value": "CN, CHINA"
+			},
+			"teu": {
+				"cnKey": "20尺标箱数量",
+				"key": "teu",
+				"value": "1.0"
+			},
+			"unitOfQuantity": {
+				"cnKey": "件数单位",
+				"key": "unitOfQuantity",
+				"value": "CTN"
+			},
+			"unitOfMeasure": {
+				"cnKey": "体积单位",
+				"key": "unitOfMeasure",
+				"value": "X"
+			},
+			"containerId": {
+				"cnKey": "集装箱号",
+				"key": "containerId",
+				"value": "GLDU3270696"
+			},
+			"containerSize": {
+				"cnKey": "集装箱尺寸",
+				"key": "containerSize",
+				"value": "2000*806*800"
+			},
+			"containerType": {
+				"cnKey": "集装箱类型",
+				"key": "containerType",
+				"value": "2200"
+			},
+			"notifyPartyName": {
+				"cnKey": "通知方",
+				"key": "notifyPartyName",
+				"value": "N/A"
+			},
+			"notifyPartyAddr": {
+				"cnKey": "通知方地址",
+				"key": "notifyPartyAddr",
+				"value": "N/A"
+			},
+			"marksAndNumbers": {
+				"cnKey": "唛头",
+				"key": "marksAndNumbers",
+				"value": "NO MARKS"
+			},
+			"cif": {
+				"cnKey": "到岸估价",
+				"key": "cif",
+				"value": "0.0"
+			}
+		}
+	}],
+	"aggregations": {
+		"consigneeName": {
+			"total": 7,
+			"items": [{
+				"key": "QUINTESSENTIAL TOTS LLC",
+				"count": 9
+			}, {
+				"key": "DOT & DOT INTL",
+				"count": 2
+			}, {
+				"key": "COTTON BABIES INC",
+				"count": 1
+			}, {
+				"key": "DOT & DOT INTERNATIONAL",
+				"count": 1
+			}, {
+				"key": "DOT & DOT INTL 10685B HAZELHURST DR",
+				"count": 1
+			}, {
+				"key": "LUV N CARE LTD",
+				"count": 1
+			}, {
+				"key": "VITBOT USA LLC",
+				"count": 1
+			}]
+		},
+		"shipperName": {
+			"total": 1,
+			"items": [{
+				"key": "SHENZHEN KEAN SILICONE PRODUCT CO LTD",
+				"count": 16
+			}]
+		}
+	},
+	"country": "America"
+}
