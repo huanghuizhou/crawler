@@ -5,6 +5,8 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import logging
+
 from scrapy import signals
 from scrapy.exceptions import IgnoreRequest
 
@@ -61,6 +63,7 @@ class GlobalSourceSpiderMiddleware(object):
 
 class GlobalSourceDownloaderMiddleware(object):
     def __init__(self):
+        self.logger = logging.getLogger()
         self.client = MONGO_CLIENT
         self.collection = self.client[DB_NAME][COLLECTION_NAME]
 
@@ -77,5 +80,6 @@ class GlobalSourceDownloaderMiddleware(object):
         })
         if count != 0:
             # 已完成页面直接跳过
+            self.logger.debug("Done with %s, skip", request.url)
             raise IgnoreRequest(request.url)
         return None
