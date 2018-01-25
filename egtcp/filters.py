@@ -15,7 +15,7 @@ class DupFilterInMongo(BaseDupeFilter):
         self.collection = MONGO_CLIENT[DB_NAME][DUPL_COLLECTION_NAME]
         self.logdupes = True
         self.debug = debug
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(__name__)
 
     @classmethod
     def from_settings(cls, settings):

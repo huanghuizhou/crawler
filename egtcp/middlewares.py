@@ -63,7 +63,7 @@ class GlobalSourceSpiderMiddleware(object):
 
 class GlobalSourceDownloaderMiddleware(object):
     def __init__(self):
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(__name__)
         self.client = MONGO_CLIENT
         self.collection = self.client[DB_NAME][COLLECTION_NAME]
 
