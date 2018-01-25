@@ -93,5 +93,6 @@ ITEM_PIPELINES = {
 
 RETRY_TIMES = 5
 LOG_FORMAT = "%(asctime)s [%(name)s:%(lineno)d] %(levelname)s: %(message)s"
-DUPEFILTER_DEBUG = True
+DUPEFILTER_DEBUG = False
+# DUPEFILTER_CLASS = 'egtcp.filters.DupFilterInMongo'
 # LOG_LEVEL = 'INFO'
