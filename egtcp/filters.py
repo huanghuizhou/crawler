@@ -36,17 +36,17 @@ class DupFilterInMongo(BaseDupeFilter):
             return False
 
         duplicate = self.collection.find_one({'url': request.url})
-        referrer = request.headers.get('Referer')
-        if referrer:
-            referrer = referrer.decode('utf-8')
+        referer = request.headers.get('Referer')
+        if referer:
+            referer = referer.decode('utf-8')
         if not duplicate:
             duplicate = {
-                'url':       request.url,
-                'referrers': [referrer],
+                'url':      request.url,
+                'referers': [referer],
             }
             self.collection.insert_one(duplicate)
             return False
-        duplicate['referrers'].append(referrer)
+        duplicate['referers'].append(referer)
         self.collection.replace_one({'url': request.url}, duplicate)
         return True
 
