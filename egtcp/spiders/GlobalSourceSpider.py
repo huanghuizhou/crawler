@@ -94,7 +94,7 @@ class GlobalSourceSpider(scrapy.Spider):
         # do stuff with the logged in response
         page_type = response.meta['type']
         if page_type not in self.parse_handler_mapping:
-            self.logger.error('%s handler not found')
+            self.logger.error('%s handler not found', page_type)
             return
 
         handler = self.parse_handler_mapping[page_type]
