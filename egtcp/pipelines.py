@@ -6,6 +6,8 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
+from datetime import datetime
+
 from egtcp.dao import MONGO_CLIENT, COLLECTION_NAME, DB_NAME
 from egtcp.utils import to_dict
 
@@ -16,13 +18,17 @@ class GlobalSourcePipeline(object):
         self.collection = self.client[DB_NAME][COLLECTION_NAME]
 
     def process_item(self, item, spider):
+        current_ts = datetime.now()
         supplier_id = item['id']
         data = to_dict(dict(item))
         data['_id'] = data.pop('id')
         data['done'] = len(item['todo_page_set']) == 0
+        data['update_time'] = current_ts
         del data['todo_page_set']
 
         data = self._clean_data(data)
+        if not self.collection.find_one({'_id': supplier_id}):
+            data['create_time'] = current_ts
         self.collection.replace_one({'_id': supplier_id}, data, upsert=True)
         return item
 
