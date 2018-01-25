@@ -6,6 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
+import logging
 from datetime import datetime
 
 from egtcp.dao import MONGO_CLIENT, COLLECTION_NAME, DB_NAME
@@ -16,12 +17,14 @@ class GlobalSourcePipeline(object):
     def __init__(self):
         self.client = MONGO_CLIENT
         self.collection = self.client[DB_NAME][COLLECTION_NAME]
+        self.logger = logging.getLogger(__name__)
 
     def process_item(self, item, spider):
         current_ts = datetime.now()
         supplier_id = item['id']
         data = to_dict(dict(item))
         data['_id'] = data.pop('id')
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         data['done'] = len(item['todo_page_set']) == 0
         data['update_time'] = current_ts
         del data['todo_page_set']

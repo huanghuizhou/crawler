@@ -277,6 +277,7 @@ class GlobalSourceSpider(scrapy.Spider):
 
         for req in request_list:
             yield req
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         yield item
 
     def parse_supplier_company_profile(self, response):
@@ -323,6 +324,7 @@ class GlobalSourceSpider(scrapy.Spider):
         certificate_info = item['certificate_info']
         certificate_info.certificate = response.xpath(
             '//p[@class="fl c6 proDetTit" and text()="Certifications:"]/following-sibling::div/ul/li/text()[1]').extract()
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_COMPANY_PROFILE)
         yield item
 
@@ -349,6 +351,7 @@ class GlobalSourceSpider(scrapy.Spider):
         basic_info_en.shareholders = self._extract_info_list(response, 'Shareholders:')
         basic_info_en.business_scope = self._extract_info(response, 'Business Scope:')
 
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_CREDIT_PROFILE)
         yield item
 
@@ -365,6 +368,7 @@ class GlobalSourceSpider(scrapy.Spider):
         trade_info.warranty = self._extract_info(response, 'Guarantees/Warranties/Terms and Conditions:')
         trade_info.export_import_processing_support = self._extract_info(response, 'Export/Import Processing Support:')
         trade_info.after_sales_service = self._extract_info(response, 'After Sales Service:')
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_SERVICE)
         yield item
 
@@ -390,6 +394,7 @@ class GlobalSourceSpider(scrapy.Spider):
         certificate_info.scope = extract_info('Scope/Range:')
         certificate_info.image_url = response.xpath(
             '//i[@class="picBigIcon"]/preceding-sibling::img/@src').extract_first()
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_CERTIFICATE)
         yield item
 
@@ -407,6 +412,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.production_staff_amount = self._extract_info(response, 'Production Staff:')
         detailed_info.qc.staff_amount = self._extract_info(response, 'QC Staff:')
         detailed_info.research_and_develop.rd_staff_amount = self._extract_info(response, 'R&D Staff:')
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_FACTORY)
         yield item
 
@@ -424,6 +430,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.research_and_develop.equipment = self._extract_info(response, 'Machinery/Equipment for R&D:')
         detailed_info.research_and_develop.patent = self._extract_info(response, 'Patents & Copyrights:')
         detailed_info.research_and_develop.award = self._extract_info(response, 'Awards & Other Recognitions:')
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_R_D)
         yield item
 
@@ -453,6 +460,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.staff_detail = self._extract_info_list(response, 'Staff Details:')
         detailed_info.capacity.monthly_capacity = self._extract_info(response, 'Monthly Capacity:')
         detailed_info.capacity.monthly_output = self._extract_info(response, 'Monthly Output:')
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_OEM)
         yield item
 
@@ -470,6 +478,7 @@ class GlobalSourceSpider(scrapy.Spider):
         detailed_info.qc.equipment = self._extract_info(response, 'Materials/Components:')
         detailed_info.qc.testing_detail = self._extract_info(response, 'Procedures/testing Details:')
         detailed_info.qc.other_info = self._extract_info(response, 'Other Information:')
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_QC)
         yield item
 
@@ -493,6 +502,7 @@ class GlobalSourceSpider(scrapy.Spider):
             trade_show.location = extract_info('Location/Venue')
             trade_show.date = extract_info('Show Date')
             detailed_info.trade_show.append(trade_show)
+        self.logger.debug("%s todo_page_set id == %s", item['id'], id(item['todo_page_set']))
         item['todo_page_set'].remove(PageType.SUPPLIER_TRADE_SHOW)
         yield item
 
