@@ -2,6 +2,7 @@
 # coding=utf-8
 
 import logging
+import time
 
 import requests
 
@@ -67,10 +68,11 @@ def get_trade_list(supplier_name):
     return resp_json
 
 
-def save_trade_wow(data):
+def save_trade_wow(supplier, data):
     collection = MONGO_CLIENT[DB_NAME][TRADE_WOW_COLLECTION]
     for trade in data:
         trade['_id'] = trade.pop('id')
+        trade['supplier_id'] = supplier['_id']
         collection.replace_one({'_id': trade['_id']}, trade, upsert=True)
 
 
@@ -101,19 +103,33 @@ def save_trade_info(supplier, aggregations):
 
 def main():
     collection = MONGO_CLIENT[DB_NAME][COLLECTION_NAME]
+    tradewow_collection = MONGO_CLIENT[DB_NAME][TRADE_WOW_COLLECTION]
     ids = [x['_id'] for x in collection.find({'done': True}, {'_id': 1})]
     for supplier_id in ids:
         supplier = collection.find_one({'_id': supplier_id})
         if not supplier:
             logger.error('supplier id %s can not be found' % supplier_id)
             continue
+        trade = tradewow_collection.find_one({'supplier_id': supplier_id})
+        if trade:
+            logger.debug('supplier %s info found, skip', supplier_id)
+            continue
+
         try:
             name = supplier['basic_info_en']['name']
         except KeyError:
             logger.error('unknown supplier name of %s' % supplier_id)
             continue
-        trade = get_trade_list(name)
-        save_trade_wow(trade['data'])
+        while True:
+            try:
+                trade = get_trade_list(name)
+            except Exception as e:
+                logger.warning('Failed to retrieve %s, wait for 1 min', supplier_id, e)
+                time.sleep(60)
+            else:
+                break
+
+        save_trade_wow(supplier, trade['data'])
         save_trade_info(supplier, trade['aggregations'])
         if len(trade['data']) > 0:
             logger.info('supplier %s(%s) trade info saved' % (supplier_id, name))
