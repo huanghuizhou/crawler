@@ -112,7 +112,7 @@ def main():
             continue
         trade = tradewow_collection.find_one({'supplier_id': supplier_id})
         if trade:
-            logger.debug('supplier %s info found, skip', supplier_id)
+            logger.debug('supplier %s info found, skip' % supplier_id)
             continue
 
         try:
@@ -124,7 +124,7 @@ def main():
             try:
                 trade = get_trade_list(name)
             except Exception as e:
-                logger.warning('Failed to retrieve %s, wait for 1 min', supplier_id, e)
+                logger.warning('Failed to retrieve %s, wait for 1 min' % supplier_id, e)
                 time.sleep(60)
             else:
                 break
