@@ -2,9 +2,13 @@
 # coding=utf-8
 
 import logging
+import os
+import sys
 import time
 
 import requests
+
+sys.path.append(os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..'))
 
 from egtcp.dao import MONGO_CLIENT, DB_NAME, COLLECTION_NAME
 
