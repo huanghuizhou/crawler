@@ -95,9 +95,9 @@ def save_trade_info(supplier, aggregations):
             logger.error('key not found in item %s' % str(item))
             continue
         collection.insert_one({
-            'supplier':    name,
-            'supplier_cn': name_cn,
-            'buyer':       item['key']
+            'supplier':   name,
+            'supplierCn': name_cn,
+            'buyer':      item['key']
         })
 
 
