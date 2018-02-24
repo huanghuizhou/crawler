@@ -198,7 +198,7 @@ def find_emails(website):
         target_url = m.group(1)
     target_response = requests.get(target_url, proxies=PROXY)
     if target_response.status_code != 200:
-        logger.warning('Target site may be down, code %s', target_response.status_code)
+        logger.warning('Target site "%s" may be down, code %s', target_url, target_response.status_code)
         logger.debug('Target site response\n %s', target_response.text)
     matches = EMAIL_PATTERN.findall(target_response.text)
     return [m[0] for m in matches]
@@ -209,7 +209,14 @@ def main():
     # init_network()
     driver = init_selenium()
     logger.info('Initialized successfully, start working')
-    cursor = collection.find({'full_name': {'$exists': False}}, no_cursor_timeout=True)
+    cursor = collection.find({
+        'full_name': {'$exists': False},
+        '$or':       [
+            {'miss': False},
+            {'miss': {'$exists': False}}
+        ]
+    },
+        no_cursor_timeout=True)
     for doc in cursor:
         if 'name' not in doc:
             logger.error('name not found in doc %s', doc)
@@ -221,8 +228,8 @@ def main():
             continue
         if not place:
             logger.info('No place info found for "%s"', doc['name'])
-            continue
-        if place['website']:
+            place = {'miss': True}
+        if 'website' in place and place['website']:
             try:
                 emails = find_emails(place['website'])
                 place['emails'] = emails
@@ -230,6 +237,8 @@ def main():
                 logger.error('Failed to find emails %s', str(e))
         doc.update(place)
         doc['update_time'] = datetime.now()
+        if '_id' in doc:
+            del doc['_id']
         collection.replace_one({'name': doc['name']}, doc)
         logger.info('Place info "%s" updated', doc['name'])
     cursor.close()
