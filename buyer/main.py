@@ -6,6 +6,7 @@ import os
 import re
 import sys
 import time
+from datetime import datetime
 from urllib.parse import quote, urlparse
 
 import requests
@@ -207,14 +208,15 @@ def main():
     # init_network()
     driver = init_selenium()
     logger.info('Initialized successfully, start working')
-    for doc in collection.find({'full_name': {'$exists': False}}):
+    cursor = collection.find({'full_name': {'$exists': False}}, no_cursor_timeout=True)
+    for doc in cursor:
         if 'name' not in doc:
             logger.error('name not found in doc %s', doc)
             continue
         try:
             place = find_place(doc['name'])
         except Exception as e:
-            logger.error('Failed to find place, %s', e)
+            logger.error('Failed to find place', e)
             continue
         if not place:
             logger.info('No place info found for "%s"', doc['name'])
@@ -223,8 +225,10 @@ def main():
             emails = find_emails(place['website'])
             place['emails'] = emails
         doc.update(place)
+        doc['update_time'] = datetime.now()
         collection.replace_one({'name': doc['name']}, doc)
         logger.info('Place info "%s" updated', doc['name'])
+    cursor.close()
 
 
 if __name__ == '__main__':
