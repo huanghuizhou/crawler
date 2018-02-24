@@ -203,9 +203,16 @@ def main():
     global driver
     # init_network()
     driver = init_selenium()
-    # find_place('ELMORE ELECTRIC CO')
-    print(find_emails('birdrf.com'))
-    pass
+    for doc in collection.find({'full_name': {'$exists': False}}):
+        if 'name' not in doc:
+            logger.error('name not found in doc %s', doc)
+            continue
+        place = find_place(doc['name'])
+        if place['website']:
+            emails = find_emails(place['website'])
+            place['emails'] = emails
+        doc.update(place)
+        collection.replace_one({'name': doc['name']}, doc)
 
 
 if __name__ == '__main__':
