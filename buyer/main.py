@@ -21,6 +21,7 @@ from egtcp.dao import MONGO_CLIENT, DB_NAME
 
 BUYER_COLLECTION = 'Buyers'
 GOOGLE_MAP_SEARCH = 'https://www.google.com/maps/place/%s/@39.0163683,-86.1636772,4z'
+GOOGLE_SEARCH = 'https://www.google.com/search?ie=UTF-8&oe=UTF-8&q='
 SELENIUM_SERVER = 'http://192.168.20.240:4444/wd/hub'
 TMP_DIR = '/tmp'
 UPLOAD_API = 'https://basic.egtcp.com/upload'
@@ -30,6 +31,8 @@ PROXY = {
 }
 
 IMAGE_PATTERN = re.compile('url\("(.*)"\)')
+GOOGLE_RESULT_PATTERN = re.compile('q=(.*?)&')
+EMAIL_PATTERN = re.compile('([a-zA-Z0-9\-.]+@[a-zA-Z0-9\-]+(\.[a-zA-Z0-9_\-]+)+)')
 
 
 def get_logger(name):
@@ -117,6 +120,7 @@ def _upload_cdn(url):
 
 
 def find_images():
+    # 点图片按钮
     driver.find_element_by_css_selector('.section-image-pack-button').click()
     img_css = 'div.gallery-image-high-res.loaded'
     do_with_retry(lambda x: driver.find_element_by_css_selector(img_css), wait_time=3)
@@ -168,14 +172,39 @@ def find_place(place_name):
         'phone':     _extract_info(response, 'phone'),
         'images':    find_images()
     }
-    print(place)
+    # print(place)
+    return place
+
+
+def find_emails(website):
+    keyword = 'mail ' + website
+    url = GOOGLE_SEARCH + keyword
+    resp = requests.get(url, proxies=PROXY)
+    if resp.status_code != 200:
+        logger.error('Response error, code %s', resp.status_code)
+        logger.debug('Response: %s', resp.text)
+        raise IOError('Failed to search mail from ' + url)
+    response = Selector(text=resp.text)
+
+    target_url = response.xpath('//div[@class="g"]/h3/a/@href').extract_first()
+    m = GOOGLE_RESULT_PATTERN.search(target_url)
+    if not m:
+        raise ValueError('Failed to parse google search result %s', target_url)
+    target_url = m.group(1)
+    target_response = requests.get(target_url, proxies=PROXY)
+    if target_response.status_code != 200:
+        logger.warning('Target site may be down, code %s', target_response.status_code)
+        logger.debug('Target site response\n %s', target_response.text)
+    matches = EMAIL_PATTERN.findall(target_response.text)
+    return [m[0] for m in matches]
 
 
 def main():
     global driver
     # init_network()
     driver = init_selenium()
-    find_place('ELMORE ELECTRIC CO')
+    # find_place('ELMORE ELECTRIC CO')
+    print(find_emails('birdrf.com'))
     pass
 
 
