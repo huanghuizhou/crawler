@@ -30,7 +30,7 @@ PROXY = {
     'https': 'http://127.0.0.1:1235',
 }
 
-IMAGE_PATTERN = re.compile('url\("(.*)"\)')
+IMAGE_PATTERN = re.compile('url\("(.*?)"\)')
 GOOGLE_RESULT_PATTERN = re.compile('q=(.*?)&')
 EMAIL_PATTERN = re.compile('([a-zA-Z0-9\-.]+@[a-zA-Z0-9\-]+(\.[a-zA-Z0-9_\-]+)+)')
 
