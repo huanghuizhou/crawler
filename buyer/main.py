@@ -227,7 +227,7 @@ def main():
             logger.error('Failed to find place %s', str(e))
             continue
         if not place:
-            logger.info('No place info found for "%s"', doc['name'])
+            logger.warning('No place info found for "%s"', doc['name'])
             place = {'miss': True}
         if 'website' in place and place['website']:
             try:
