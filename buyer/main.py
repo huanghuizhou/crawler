@@ -157,6 +157,9 @@ def find_place(place_name):
     do_with_retry(lambda x: check_loading('div.loading'), wait_time=3)
 
     if 'search' in driver.current_url:
+        if len(driver.find_elements_by_css_selector('div.section-bad-query')) > 0:
+            # 无结果
+            return None
         # 如果是搜索页，点第一个结果
         do_with_retry(lambda x: driver.find_element_by_xpath('(//div[@class="section-result"])').click(),
                       wait_time=3)
@@ -208,11 +211,15 @@ def main():
             logger.error('name not found in doc %s', doc)
             continue
         place = find_place(doc['name'])
+        if not place:
+            logger.info('No place info found for "%s"', doc['name'])
+            continue
         if place['website']:
             emails = find_emails(place['website'])
             place['emails'] = emails
         doc.update(place)
         collection.replace_one({'name': doc['name']}, doc)
+        logger.info('Place info "%s" updated', doc['name'])
 
 
 if __name__ == '__main__':
