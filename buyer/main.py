@@ -123,7 +123,7 @@ def find_images():
     # 点图片按钮
     driver.find_element_by_css_selector('.section-image-pack-button').click()
     img_css = 'div.gallery-image-high-res.loaded'
-    do_with_retry(lambda x: driver.find_element_by_css_selector(img_css), wait_time=3)
+    do_with_retry(lambda x: driver.find_element_by_css_selector(img_css), wait_time=3, max_retry=10)
     elements = driver.find_elements_by_css_selector(img_css)
     images = []
     for element in elements:
@@ -211,7 +211,11 @@ def main():
         if 'name' not in doc:
             logger.error('name not found in doc %s', doc)
             continue
-        place = find_place(doc['name'])
+        try:
+            place = find_place(doc['name'])
+        except Exception as e:
+            logger.error('Failed to find place, %s', e)
+            continue
         if not place:
             logger.info('No place info found for "%s"', doc['name'])
             continue
