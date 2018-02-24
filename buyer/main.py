@@ -191,10 +191,11 @@ def find_emails(website):
     response = Selector(text=resp.text)
 
     target_url = response.xpath('//div[@class="g"]/h3/a/@href').extract_first()
-    m = GOOGLE_RESULT_PATTERN.search(target_url)
-    if not m:
-        raise ValueError('Failed to parse google search result %s', target_url)
-    target_url = m.group(1)
+    if target_url.startswith('/url'):
+        m = GOOGLE_RESULT_PATTERN.search(target_url)
+        if not m:
+            raise ValueError('Failed to parse google search result %s', target_url)
+        target_url = m.group(1)
     target_response = requests.get(target_url, proxies=PROXY)
     if target_response.status_code != 200:
         logger.warning('Target site may be down, code %s', target_response.status_code)
@@ -216,14 +217,17 @@ def main():
         try:
             place = find_place(doc['name'])
         except Exception as e:
-            logger.error('Failed to find place', e)
+            logger.error('Failed to find place %s', str(e))
             continue
         if not place:
             logger.info('No place info found for "%s"', doc['name'])
             continue
         if place['website']:
-            emails = find_emails(place['website'])
-            place['emails'] = emails
+            try:
+                emails = find_emails(place['website'])
+                place['emails'] = emails
+            except Exception as e:
+                logger.error('Failed to find emails %s', str(e))
         doc.update(place)
         doc['update_time'] = datetime.now()
         collection.replace_one({'name': doc['name']}, doc)
