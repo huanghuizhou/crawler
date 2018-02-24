@@ -42,7 +42,7 @@ def get_logger(name):
     # Standard output handler
     sh = logging.StreamHandler()
     sh.setLevel(logging.DEBUG)
-    sh.setFormatter(logging.Formatter('%(levelname)s - %(name)s:%(lineno)s: %(message)s'))
+    sh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(name)s:%(lineno)s: %(message)s'))
     log.addHandler(sh)
 
     return log
@@ -206,6 +206,7 @@ def main():
     global driver
     # init_network()
     driver = init_selenium()
+    logger.info('Initialized successfully, start working')
     for doc in collection.find({'full_name': {'$exists': False}}):
         if 'name' not in doc:
             logger.error('name not found in doc %s', doc)
