@@ -2,6 +2,7 @@
 # coding=utf-8
 
 import logging
+import multiprocessing
 import os
 import re
 import sys
@@ -10,6 +11,7 @@ from datetime import datetime
 from urllib.parse import quote, urlparse
 
 import requests
+from pymongo import MongoClient
 from scrapy import Selector
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -66,6 +68,12 @@ def init_selenium():
     chrome_options.add_argument('--lang=en_US,en')
     return webdriver.Remote(SELENIUM_SERVER, webdriver.DesiredCapabilities.CHROME,
                             options=chrome_options)
+
+
+def init_mongo():
+    return MongoClient(host='192.168.2.203', port=27017, username="gt_rw", password="greattao5877",
+                       authSource=DB_NAME,
+                       authMechanism="SCRAM-SHA-1")
 
 
 def do_with_retry(func, arg=None, wait_time=1, max_retry=5):
@@ -182,10 +190,10 @@ def find_place(place_name):
 
 def find_emails(website):
     keyword = 'mail ' + website
-    url = GOOGLE_SEARCH + keyword
+    url = GOOGLE_SEARCH + quote(keyword)
     resp = requests.get(url, proxies=PROXY)
     if resp.status_code != 200:
-        logger.error('Response error, code %s', resp.status_code)
+        logger.error('Response from "%s" error, code %s', url, resp.status_code)
         logger.debug('Response: %s', resp.text)
         raise IOError('Failed to search mail from ' + url)
     response = Selector(text=resp.text)
@@ -204,19 +212,15 @@ def find_emails(website):
     return [m[0] for m in matches]
 
 
-def main():
-    global driver
+def work(query, page_begin, page_end):
+    global driver, collection
     # init_network()
     driver = init_selenium()
-    logger.info('Initialized successfully, start working')
-    cursor = collection.find({
-        'full_name': {'$exists': False},
-        '$or':       [
-            {'miss': False},
-            {'miss': {'$exists': False}}
-        ]
-    },
-        no_cursor_timeout=True)
+    client = init_mongo()
+    collection = client[DB_NAME][BUYER_COLLECTION]
+    logger.info(
+        'Initialized successfully, start working from %d to %d' % (page_begin, page_end))
+    cursor = collection.find(query, no_cursor_timeout=True).skip(page_begin).limit(page_end - page_begin + 1)
     for doc in cursor:
         if 'name' not in doc:
             logger.error('name not found in doc %s', doc)
@@ -242,6 +246,35 @@ def main():
         collection.replace_one({'name': doc['name']}, doc)
         logger.info('Place info "%s" updated', doc['name'])
     cursor.close()
+
+
+def main():
+    query = {
+        'full_name': {'$exists': False},
+        '$or':       [
+            {'miss': False},
+            {'miss': {'$exists': False}}
+        ]
+    }
+    count = collection.count(query)
+    page_num = 4
+    page_size = count // page_num
+    processes = []
+    for i in range(page_num):
+        page_begin = page_size * i
+        if i == page_num - 1:
+            page_end = count
+        else:
+            page_end = page_begin + page_size - 1
+        process_name = 'query-%d-%d' % (page_begin, page_end)
+        p = multiprocessing.Process(target=work, args=(query, page_begin, page_end), name=process_name)
+        p.start()
+        logger.info('Sub process %s started', process_name)
+        processes.append(p)
+
+    for p in processes:
+        p.join()
+        logger.info('Sub process %s finished', p.name)
 
 
 if __name__ == '__main__':
