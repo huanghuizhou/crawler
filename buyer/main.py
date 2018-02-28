@@ -32,6 +32,7 @@ PROXY = {
     'http':  'http://127.0.0.1:1235',
     'https': 'http://127.0.0.1:1235',
 }
+REQUEST_TIMEOUT = 5  # seconds
 
 IMAGE_PATTERN = re.compile('url\("(.*?)"\)')
 GOOGLE_RESULT_PATTERN = re.compile('q=(.*?)&')
@@ -115,7 +116,7 @@ def _file_ext(url):
 
 
 def _upload_cdn(url):
-    raw_image_resp = requests.get(url, proxies=PROXY)
+    raw_image_resp = requests.get(url, proxies=PROXY, timeout=REQUEST_TIMEOUT)
     if raw_image_resp.status_code != 200:
         raise IOError('Failed to download image ' + url)
 
@@ -139,7 +140,7 @@ def find_images():
         raw_image_url = _extract_image_url(element.get_attribute('style'))
         try:
             cdn_image_url = _upload_cdn(raw_image_url)
-        except IOError as e:
+        except Exception as e:
             logger.error(e)
             cdn_image_url = None
         images.append({
@@ -191,7 +192,7 @@ def find_place(place_name):
 def find_emails(website):
     keyword = 'mail ' + website
     url = GOOGLE_SEARCH + quote(keyword)
-    resp = requests.get(url, proxies=PROXY)
+    resp = requests.get(url, proxies=PROXY, timeout=REQUEST_TIMEOUT)
     if resp.status_code != 200:
         logger.error('Response from "%s" error, code %s', url, resp.status_code)
         logger.debug('Response: %s', resp.text)
@@ -204,7 +205,7 @@ def find_emails(website):
         if not m:
             raise ValueError('Failed to parse google search result %s', target_url)
         target_url = m.group(1)
-    target_response = requests.get(target_url, proxies=PROXY)
+    target_response = requests.get(target_url, proxies=PROXY, timeout=REQUEST_TIMEOUT)
     if target_response.status_code != 200:
         logger.warning('Target site "%s" may be down, code %s', target_url, target_response.status_code)
         logger.debug('Target site response\n %s', target_response.text)
