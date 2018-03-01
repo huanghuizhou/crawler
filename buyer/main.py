@@ -221,8 +221,10 @@ def work(query, page_begin, page_end):
     collection = client[DB_NAME][BUYER_COLLECTION]
     logger.info(
         'Initialized successfully, start working from %d to %d' % (page_begin, page_end))
-    cursor = collection.find(query, no_cursor_timeout=True).skip(page_begin).limit(page_end - page_begin + 1)
-    for doc in cursor:
+    cursor = collection.find(query, {'_id': 1}).skip(page_begin).limit(page_end - page_begin + 1)
+    ids = [x['_id'] for x in cursor]
+    for doc_id in ids:
+        doc = collection.find_one(doc_id)
         if 'name' not in doc:
             logger.error('name not found in doc %s', doc)
             continue
@@ -246,7 +248,6 @@ def work(query, page_begin, page_end):
             del doc['_id']
         collection.replace_one({'name': doc['name']}, doc)
         logger.info('Place info "%s" updated', doc['name'])
-    cursor.close()
 
 
 def main():
