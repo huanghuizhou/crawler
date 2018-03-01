@@ -17,6 +17,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 
+import network
 from exception import MaxRetryExceeded
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..'))
@@ -116,7 +117,7 @@ def _file_ext(url):
 
 
 def _upload_cdn(url):
-    raw_image_resp = requests.get(url, proxies=PROXY, timeout=REQUEST_TIMEOUT)
+    raw_image_resp = network.get(url)
     if raw_image_resp.status_code != 200:
         raise IOError('Failed to download image ' + url)
 
@@ -192,7 +193,7 @@ def find_place(place_name):
 def find_emails(website):
     keyword = 'mail ' + website
     url = GOOGLE_SEARCH + quote(keyword)
-    resp = requests.get(url, proxies=PROXY, timeout=REQUEST_TIMEOUT)
+    resp = network.get(url)
     if resp.status_code != 200:
         logger.error('Response from "%s" error, code %s', url, resp.status_code)
         logger.debug('Response: %s', resp.text)
@@ -205,7 +206,7 @@ def find_emails(website):
         if not m:
             raise ValueError('Failed to parse google search result %s', target_url)
         target_url = m.group(1)
-    target_response = requests.get(target_url, proxies=PROXY, timeout=REQUEST_TIMEOUT)
+    target_response = network.get(target_url)
     if target_response.status_code != 200:
         logger.warning('Target site "%s" may be down, code %s', target_url, target_response.status_code)
         logger.debug('Target site response\n %s', target_response.text)
