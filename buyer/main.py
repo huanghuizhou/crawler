@@ -2,6 +2,7 @@
 # coding=utf-8
 
 import logging
+import multiprocessing
 import os
 import re
 import sys
@@ -10,11 +11,13 @@ from datetime import datetime
 from urllib.parse import quote, urlparse
 
 import requests
+from pymongo import MongoClient
 from scrapy import Selector
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 
+import network
 from exception import MaxRetryExceeded
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..'))
@@ -30,6 +33,7 @@ PROXY = {
     'http':  'http://127.0.0.1:1235',
     'https': 'http://127.0.0.1:1235',
 }
+REQUEST_TIMEOUT = 5  # seconds
 
 IMAGE_PATTERN = re.compile('url\("(.*?)"\)')
 GOOGLE_RESULT_PATTERN = re.compile('q=(.*?)&')
@@ -66,6 +70,12 @@ def init_selenium():
     chrome_options.add_argument('--lang=en_US,en')
     return webdriver.Remote(SELENIUM_SERVER, webdriver.DesiredCapabilities.CHROME,
                             options=chrome_options)
+
+
+def init_mongo():
+    return MongoClient(host='192.168.2.203', port=27017, username="gt_rw", password="greattao5877",
+                       authSource=DB_NAME,
+                       authMechanism="SCRAM-SHA-1")
 
 
 def do_with_retry(func, arg=None, wait_time=1, max_retry=5):
@@ -107,7 +117,7 @@ def _file_ext(url):
 
 
 def _upload_cdn(url):
-    raw_image_resp = requests.get(url, proxies=PROXY)
+    raw_image_resp = network.get(url)
     if raw_image_resp.status_code != 200:
         raise IOError('Failed to download image ' + url)
 
@@ -131,7 +141,7 @@ def find_images():
         raw_image_url = _extract_image_url(element.get_attribute('style'))
         try:
             cdn_image_url = _upload_cdn(raw_image_url)
-        except IOError as e:
+        except Exception as e:
             logger.error(e)
             cdn_image_url = None
         images.append({
@@ -182,10 +192,10 @@ def find_place(place_name):
 
 def find_emails(website):
     keyword = 'mail ' + website
-    url = GOOGLE_SEARCH + keyword
-    resp = requests.get(url, proxies=PROXY)
+    url = GOOGLE_SEARCH + quote(keyword)
+    resp = network.get(url)
     if resp.status_code != 200:
-        logger.error('Response error, code %s', resp.status_code)
+        logger.error('Response from "%s" error, code %s', url, resp.status_code)
         logger.debug('Response: %s', resp.text)
         raise IOError('Failed to search mail from ' + url)
     response = Selector(text=resp.text)
@@ -196,7 +206,7 @@ def find_emails(website):
         if not m:
             raise ValueError('Failed to parse google search result %s', target_url)
         target_url = m.group(1)
-    target_response = requests.get(target_url, proxies=PROXY)
+    target_response = network.get(target_url)
     if target_response.status_code != 200:
         logger.warning('Target site "%s" may be down, code %s', target_url, target_response.status_code)
         logger.debug('Target site response\n %s', target_response.text)
@@ -204,20 +214,18 @@ def find_emails(website):
     return [m[0] for m in matches]
 
 
-def main():
-    global driver
+def work(query, page_begin, page_end):
+    global driver, collection
     # init_network()
     driver = init_selenium()
-    logger.info('Initialized successfully, start working')
-    cursor = collection.find({
-        'full_name': {'$exists': False},
-        '$or':       [
-            {'miss': False},
-            {'miss': {'$exists': False}}
-        ]
-    },
-        no_cursor_timeout=True)
-    for doc in cursor:
+    client = init_mongo()
+    collection = client[DB_NAME][BUYER_COLLECTION]
+    logger.info(
+        'Initialized successfully, start working from %d to %d' % (page_begin, page_end))
+    cursor = collection.find(query, {'_id': 1}).skip(page_begin).limit(page_end - page_begin + 1)
+    ids = [x['_id'] for x in cursor]
+    for doc_id in ids:
+        doc = collection.find_one(doc_id)
         if 'name' not in doc:
             logger.error('name not found in doc %s', doc)
             continue
@@ -227,7 +235,7 @@ def main():
             logger.error('Failed to find place %s', str(e))
             continue
         if not place:
-            logger.info('No place info found for "%s"', doc['name'])
+            logger.warning('No place info found for "%s"', doc['name'])
             place = {'miss': True}
         if 'website' in place and place['website']:
             try:
@@ -241,7 +249,35 @@ def main():
             del doc['_id']
         collection.replace_one({'name': doc['name']}, doc)
         logger.info('Place info "%s" updated', doc['name'])
-    cursor.close()
+
+
+def main():
+    query = {
+        'full_name': {'$exists': False},
+        '$or':       [
+            {'miss': False},
+            {'miss': {'$exists': False}}
+        ]
+    }
+    count = collection.count(query)
+    page_num = 4
+    page_size = count // page_num
+    processes = []
+    for i in range(page_num):
+        page_begin = page_size * i
+        if i == page_num - 1:
+            page_end = count
+        else:
+            page_end = page_begin + page_size - 1
+        process_name = 'query-%d-%d' % (page_begin, page_end)
+        p = multiprocessing.Process(target=work, args=(query, page_begin, page_end), name=process_name)
+        p.start()
+        logger.info('Sub process %s started', process_name)
+        processes.append(p)
+
+    for p in processes:
+        p.join()
+        logger.info('Sub process %s finished', p.name)
 
 
 if __name__ == '__main__':
