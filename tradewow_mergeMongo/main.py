@@ -41,7 +41,7 @@ def replace_trade_wow(oldTrade, buyerId):
 def main():
     collection_local = MONGO_CLIENT_LOCAL[DB_NAME][COLLECTION_NAME_A]
     collection_dev = MONGO_CLIENT_DEV[DB_NAME][COLLECTION_NAME_B]
-    ids = [x['_id'] for x in collection_local.find().skip(84500)]
+    ids = [x['_id'] for x in collection_local.find().skip(161000)]
     for tradeWow_id in ids:
         tradeWow = collection_local.find_one({'_id': tradeWow_id})
         if not tradeWow:
