@@ -11,7 +11,7 @@ import pymysql
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..'))
 
-from buyerToMysql.dao import MONGO_CLIENT_DEV, DB_NAME, COLLECTION_NAME
+from dao import MONGO_CLIENT_DEV, DB_NAME, COLLECTION_NAME
 
 # 打开mysql数据库链接
 # db = pymysql.connect(host="121.201.69.46",  # 192.168.100.254
