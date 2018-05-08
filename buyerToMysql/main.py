@@ -55,18 +55,6 @@ def get_logger(name):
 logger = get_logger(__file__)
 
 
-def test():
-    sql = """INSERT INTO hhztest (money,id,name) value(%d,%d,%s)"""
-    try:
-        cursor = db.cursor()
-        cursor.execute(sql,
-                       (0, 4, "123"))
-        db.commit()
-    except Exception as e:
-        logger.warning('Failed to insert into wuliudetail sql is %s' % sql, e)
-        print('Failed to insert into wuliudetail sql is %s' % sql, e)
-        time.sleep(5)
-
 
 def insert_Mysql(buyerInfo, no):
     # list格式
@@ -83,7 +71,7 @@ def insert_Mysql(buyerInfo, no):
                 email = email + e + ","
             email = email[0:-1]
 
-    # images为dict
+    # images为list +dict
     if ("images" in buyerInfo.keys()):
         images = buyerInfo['images']
         if images is None:
@@ -141,7 +129,7 @@ value(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         cursor.execute(sql,
                        ("0", "4", "0", "互联网", "crawler", "BOSS系统", customerNo, address, website, fullName, remark, "1"))
         db.commit()
-        print("。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。" + customerNo + buyerInfo['name'])
+        print(customerNo + buyerInfo['name'])
     except Exception as e:
         logger.warning('Failed to insert into customer sql is %s' % sql, e)
         print('Failed to insert into customer sql is %s' % sql, e)
@@ -152,6 +140,7 @@ def main():
     collection_dev = MONGO_CLIENT_DEV[DB_NAME][COLLECTION_NAME]
 
     no = 1
+    # mongodb中获取数据
     for x in collection_dev.find():
         if ("miss" in x.keys()):
             if (x['miss'] == True):
