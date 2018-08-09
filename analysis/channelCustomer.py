@@ -9,31 +9,43 @@ import pymysql
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..'))
 
+
+DB_HOST = '192.168.2.203'
+DB_USER = 'greatTao'
+DB_PASSWD = 'greatTao.1314'
+DB_PORT = 3306
+
+# DB_HOST = '192.168.2.203'
+# DB_USER = 'greattao'
+# DB_PASSWD = 'greatTao.5877'
+# DB_PORT = 3308
+OUT_FILE = './result.csv'
+
 # 打开mysql数据库链接
 
-channel_crm_db = pymysql.connect(host="192.168.2.203",  # 192.168.100.254
-                                 user="greatTao",
-                                 passwd="greatTao.1314",
+channel_crm_db = pymysql.connect(host=DB_HOST,  # 192.168.100.254
+                                 user=DB_USER,
+                                 passwd=DB_PASSWD,
                                  db="channel_crm",
-                                 port=3306,  # 3306
+                                 port=DB_PORT,  # 3306
                                  use_unicode=True,
                                  charset="utf8")
 
-gttown_crm_db = pymysql.connect(host="192.168.2.203",  # 192.168.100.254
-                                user="greatTao",
-                                passwd="greatTao.1314",
+gttown_crm_db = pymysql.connect(host=DB_HOST,  # 192.168.100.254
+                                user=DB_USER,
+                                passwd=DB_PASSWD,
                                 db="gttown_crm",
-                                port=3306,  # 3306
+                                port=DB_PORT,  # 3306
                                 use_unicode=True,
                                 charset="utf8")
 
-gttown_crowdsourcing_db = pymysql.connect(host="192.168.2.203",  # 192.168.100.254
-                                user="greatTao",
-                                passwd="greatTao.1314",
-                                db="gttown_crowdsourcing",
-                                port=3306,  # 3306
-                                use_unicode=True,
-                                charset="utf8")
+gttown_crowdsourcing_db = pymysql.connect(host=DB_HOST,  # 192.168.100.254
+                                          user=DB_USER,
+                                          passwd=DB_PASSWD,
+                                          db="gttown_crowdsourcing",
+                                          port=DB_PORT,  # 3306
+                                          use_unicode=True,
+                                          charset="utf8")
 
 # 行业字段
 industryKey = {0: '其他',
@@ -162,7 +174,7 @@ def get_logger(name):
 
 logger = get_logger(__file__)
 
-out = open('E:/trade.csv', 'a')
+out = open(OUT_FILE, 'w')
 
 
 def doChannelCustomer():
@@ -170,13 +182,9 @@ def doChannelCustomer():
     sql = """select id,role from channel_customer"""
     cursor.execute(sql)
     results = cursor.fetchall()
-    gttown_crm_db.commit()
     for row in results:
         id = row[0]
         role = row[1]
-        # country=row[3]
-        # district=row[4]
-        # industry=row[10]
         analysis(role, id)
     # 处理数据并导出
     industrydataProcessor()
@@ -237,7 +245,6 @@ def analysis(role, id):
             else:
                 areaDict[district] = 1
 
-    gttown_crm_db.commit()
 
 
 # 处理数据并保存
@@ -280,19 +287,19 @@ def industrydataProcessor():
 
     out.write('国外采购商行业统计' + '\n')
     writeDict(buyerIndustryDate)
-    #out.write(str(buyerIndustryDate) + '\n')
+    # out.write(str(buyerIndustryDate) + '\n')
     out.write('国内供应商行业统计' + '\n')
     writeDict(supplierIndustryDate)
-    #out.write(str(supplierIndustryDate) + '\n')
+    # out.write(str(supplierIndustryDate) + '\n')
     out.write('行业合计' + '\n')
     writeDict(industryDate)
-    #out.write(str(industryDate) + '\n')
+    # out.write(str(industryDate) + '\n')
     out.write('国内供应商地区统计' + '\n')
     writeDict(areaDate)
-    #out.write(str(areaDate) + '\n')
+    # out.write(str(areaDate) + '\n')
     out.write('国外采购商国家统计' + '\n')
     writeDict(countryDate)
-    #out.write(str(countryDate) + '\n')
+    # out.write(str(countryDate) + '\n')
     out.flush()
 
 
@@ -323,6 +330,7 @@ def tradeInfo(year):
             tradeMoney = quantity * price
 
         else:
+            logger.debug("trade_order_id: %s 未找到对应订单信息" % id)
             tradeMoney = 0
         # 供应商信息
         supplierSql = "select province,id  from customer where id='" + str(sellerId) + "'"
@@ -342,6 +350,8 @@ def tradeInfo(year):
                 supplierTradeNum[province] = supplierTradeNum[province] + 1
             else:
                 supplierTradeNum[province] = 1
+        else:
+            logger.debug("orderId：%s ,sellerId: %s 未找到对应供应商信息" % (id ,sellerId))
 
         # 采购商信息
         corChannel = channel_crm_db.cursor()
@@ -358,11 +368,13 @@ def tradeInfo(year):
             else:
                 buyerTrade[country] = tradeMoney
 
-            if province in buyerTradeNum:
+            if country in buyerTradeNum:
                 buyerTradeNum[country] = buyerTradeNum[country] + 1
             else:
                 buyerTradeNum[country] = 1
-    gttown_crm_db.commit()
+
+        else:
+            logger.debug("orderId：%s ,buyereId: %s 未找到对应采购商信息" % (id,buyereId))
 
     resultsDict = {}
     resultsDict['buyerTrade'] = buyerTrade
@@ -372,7 +384,7 @@ def tradeInfo(year):
     return resultsDict
 
 
-def tradeDataProcessor(dict,year):
+def tradeDataProcessor(dict, year):
     buyerTrade = dict['buyerTrade']
     buyerTradeNum = dict['buyerTradeNum']
     supplierTrade = dict['supplierTrade']
@@ -390,65 +402,73 @@ def tradeDataProcessor(dict,year):
             supplierNumData[areaKey[key]] = supplierTradeNum[key]
     buyerData = buyerTrade.copy()
     buyerNumData = buyerTradeNum.copy()
-    print(str(year)+"采购商各国贸易额")
+    print(str(year) + "采购商各国贸易额")
     print(buyerData)
-    print(str(year)+"采购商各国订单数")
+    print(str(year) + "采购商各国订单数")
     print(buyerNumData)
-    print(str(year)+"供应商各省贸易额")
+    print(str(year) + "供应商各省贸易额")
     print(supplierData)
-    print(str(year)+"供应商各省订单数")
+    print(str(year) + "供应商各省订单数")
     print(supplierNumData)
 
-    out.write(str(year)+"采购商各国贸易额" + '\n')
+    out.write(str(year) + "采购商各国贸易额" + '\n')
     writeDict(buyerData)
-    #out.write(str(buyerData) + '\n')
-    out.write(str(year)+"采购商各国订单数" + '\n')
+    # out.write(str(buyerData) + '\n')
+    out.write(str(year) + "采购商各国订单数" + '\n')
     writeDict(buyerNumData)
-    #out.write(str(buyerNumData) + '\n')
-    out.write(str(year)+"供应商各省贸易额" + '\n')
+    # out.write(str(buyerNumData) + '\n')
+    out.write(str(year) + "供应商各省贸易额" + '\n')
     writeDict(supplierData)
-    #out.write(str(supplierData) + '\n')
-    out.write(str(year)+"供应商各省订单数" + '\n')
+    # out.write(str(supplierData) + '\n')
+    out.write(str(year) + "供应商各省订单数" + '\n')
     writeDict(supplierNumData)
-    #out.write(str(supplierNumData) + '\n')
+    # out.write(str(supplierNumData) + '\n')
     out.flush()
 
-#贸易总额
+
+# 贸易总额
 def tradeTotal():
     cursor = gttown_crowdsourcing_db.cursor()
-    sql ="""select SUM(declarationAmount) from `order`"""
+    sql = """select SUM(declarationAmount) from `order`"""
     cursor.execute(sql)
     results = cursor.fetchall()
-    tradeTotal=results[0][0]
+    tradeTotal = results[0][0]
     out.write("贸易额总额" + '\n')
     out.write(str(tradeTotal) + '\n')
     out.flush()
 
+
 def writeDict(dict):
     for key in dict:
-        out.write(key+",")
+        out.write(key + ",")
 
     out.write('\n')
     for value in dict.values():
-        out.write(str(value)+",")
+        out.write(str(value) + ",")
     out.write('\n')
     out.write('\n')
 
+
 def doTrage():
     # 2016年
-    tradeDataProcessor(tradeInfo(2016),2016)
+    tradeDataProcessor(tradeInfo(2016), 2016)
     # 2017年
-    tradeDataProcessor(tradeInfo(2017),2017)
+    tradeDataProcessor(tradeInfo(2017), 2017)
     # 2018年
-    tradeDataProcessor(tradeInfo(2018),2018)
+    tradeDataProcessor(tradeInfo(2018), 2018)
     # 贸易总金额
     tradeTotal()
+
+
 def main():
     # 行业信息处理
     doChannelCustomer()
     # 贸易额处理
     doTrage()
-    
+
+    channel_crm_db.close()
+    gttown_crm_db.close()
+    gttown_crowdsourcing_db.close()
     out.close()
 
 
