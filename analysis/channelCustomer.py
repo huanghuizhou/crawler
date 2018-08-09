@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-import datetime
-import json
 import logging
 import os
 import sys
-import time
 
 import pymysql
 
@@ -165,6 +162,8 @@ def get_logger(name):
 
 logger = get_logger(__file__)
 
+out = open('E:/trade.csv', 'a')
+
 
 def doChannelCustomer():
     cursor = gttown_crm_db.cursor()
@@ -279,21 +278,20 @@ def industrydataProcessor():
     print(areaDate)
     print(countryDate)
 
-    out = open('E:/industry.csv', 'a')
     out.write('国外采购商行业统计' + '\n')
-    writeDict(out,buyerIndustryDate)
+    writeDict(buyerIndustryDate)
     #out.write(str(buyerIndustryDate) + '\n')
     out.write('国内供应商行业统计' + '\n')
-    writeDict(out,supplierIndustryDate)
+    writeDict(supplierIndustryDate)
     #out.write(str(supplierIndustryDate) + '\n')
     out.write('行业合计' + '\n')
-    writeDict(out,industryDate)
+    writeDict(industryDate)
     #out.write(str(industryDate) + '\n')
     out.write('国内供应商地区统计' + '\n')
-    writeDict(out,areaDate)
+    writeDict(areaDate)
     #out.write(str(areaDate) + '\n')
     out.write('国外采购商国家统计' + '\n')
-    writeDict(out,countryDate)
+    writeDict(countryDate)
     #out.write(str(countryDate) + '\n')
     out.flush()
 
@@ -401,18 +399,17 @@ def tradeDataProcessor(dict,year):
     print(str(year)+"供应商各省订单数")
     print(supplierNumData)
 
-    out = open('E:/trade.csv', 'a')
     out.write(str(year)+"采购商各国贸易额" + '\n')
-    writeDict(out,buyerData)
+    writeDict(buyerData)
     #out.write(str(buyerData) + '\n')
     out.write(str(year)+"采购商各国订单数" + '\n')
-    writeDict(out,buyerNumData)
+    writeDict(buyerNumData)
     #out.write(str(buyerNumData) + '\n')
     out.write(str(year)+"供应商各省贸易额" + '\n')
-    writeDict(out,supplierData)
+    writeDict(supplierData)
     #out.write(str(supplierData) + '\n')
     out.write(str(year)+"供应商各省订单数" + '\n')
-    writeDict(out,supplierNumData)
+    writeDict(supplierNumData)
     #out.write(str(supplierNumData) + '\n')
     out.flush()
 
@@ -423,12 +420,11 @@ def tradeTotal():
     cursor.execute(sql)
     results = cursor.fetchall()
     tradeTotal=results[0][0]
-    out = open('E:/trade.csv', 'a')
     out.write("贸易额总额" + '\n')
     out.write(str(tradeTotal) + '\n')
     out.flush()
 
-def writeDict(out,dict):
+def writeDict(dict):
     for key in dict:
         out.write(key+",")
 
@@ -452,6 +448,8 @@ def main():
     doChannelCustomer()
     # 贸易额处理
     doTrage()
+    
+    out.close()
 
 
 if __name__ == '__main__':
