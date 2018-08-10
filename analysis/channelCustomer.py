@@ -10,15 +10,15 @@ import pymysql
 sys.path.append(os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..'))
 
 
-DB_HOST = '192.168.2.203'
-DB_USER = 'greatTao'
-DB_PASSWD = 'greatTao.1314'
-DB_PORT = 3306
-
 # DB_HOST = '192.168.2.203'
-# DB_USER = 'greattao'
-# DB_PASSWD = 'greatTao.5877'
-# DB_PORT = 3308
+# DB_USER = 'greatTao'
+# DB_PASSWD = 'greatTao.1314'
+# DB_PORT = 3306
+
+DB_HOST = '192.168.2.203'
+DB_USER = 'greattao'
+DB_PASSWD = 'greatTao.5877'
+DB_PORT = 3308
 OUT_FILE = './result.csv'
 
 # 打开mysql数据库链接
