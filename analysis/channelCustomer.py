@@ -6,9 +6,9 @@ import os
 import sys
 
 import pymysql
+import pymssql
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..'))
-
 
 # DB_HOST = '192.168.2.203'
 # DB_USER = 'greatTao'
@@ -46,6 +46,13 @@ gttown_crowdsourcing_db = pymysql.connect(host=DB_HOST,  # 192.168.100.254
                                           port=DB_PORT,  # 3306
                                           use_unicode=True,
                                           charset="utf8")
+
+
+enterprise_db = pymssql.connect(host='DEVDB.great-tao.com\\GTTOWN_DEV',
+                                user='sa',
+                                password='P@ssw0rd',
+                                database='GtTown',
+                                charset="utf8")
 
 # 行业字段
 industryKey = {0: '其他',
@@ -232,8 +239,8 @@ def analysis(role, id):
             supplier = cursor.fetchone()
             id = supplier[0]
             district = supplier[2]
-            if (len(str(district)) > 3):
-                district = str(district)[0: 3] + "000"
+            if (len(str(district)) > 1):
+                district = str(district)[0: 2] + "0000"
             industry = supplier[3]
             if industry in supplierIndustryDict:
                 supplierIndustryDict[industry] = supplierIndustryDict[industry] + 1
@@ -244,7 +251,6 @@ def analysis(role, id):
                 areaDict[district] = areaDict[district] + 1
             else:
                 areaDict[district] = 1
-
 
 
 # 处理数据并保存
@@ -351,7 +357,7 @@ def tradeInfo(year):
             else:
                 supplierTradeNum[province] = 1
         else:
-            logger.debug("orderId：%s ,sellerId: %s 未找到对应供应商信息" % (id ,sellerId))
+            logger.debug("orderId：%s ,sellerId: %s 未找到对应供应商信息" % (id, sellerId))
 
         # 采购商信息
         corChannel = channel_crm_db.cursor()
@@ -374,7 +380,7 @@ def tradeInfo(year):
                 buyerTradeNum[country] = 1
 
         else:
-            logger.debug("orderId：%s ,buyereId: %s 未找到对应采购商信息" % (id,buyereId))
+            logger.debug("orderId：%s ,buyereId: %s 未找到对应采购商信息" % (id, buyereId))
 
     resultsDict = {}
     resultsDict['buyerTrade'] = buyerTrade
