@@ -1,8 +1,8 @@
 import json
+import logging
 import pymssql
 
 import pymysql
-import logging
 
 OUT_FILE = 'E:/result1123.csv'
 # DB_HOST = '192.168.2.203'
@@ -365,7 +365,7 @@ def gangkouToCountry(buyerDict):
 
 def writeDict(dict):
     for key in dict.keys():
-        key = str(key).replace(',','，')
+        key = str(key).replace(',', ';')
         out.write(key + ",")
 
     out.write('\n')

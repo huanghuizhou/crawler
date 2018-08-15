@@ -3,8 +3,8 @@
 import decimal
 import json
 
-from analysisAll import orderAnalysis
-from analysisAll import channelCustomer
+import channelCustomer
+import orderAnalysis
 
 OUT_FILE = './resultAll.txt'
 out = open(OUT_FILE, 'w', encoding='utf-8')
